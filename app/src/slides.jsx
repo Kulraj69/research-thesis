@@ -652,53 +652,29 @@ export const slides = [
   },
 
   // ──────────────────────────────────────────
-  // — RDF TEMPERATURE COMPARISON (multi-T data)
+  // — RDF TEMPERATURE COMPARISON (all 4 plots on single page)
   // ──────────────────────────────────────────
   {
     type: "body",
-    heading: "RDF Temperature Comparison — Water & Ligand",
+    heading: "RDF Temperature Comparison — 280 to 340 K",
     content: [
       {
         kind: "dualImage",
         images: [
-          { src: "/images/rdf-zn-water-temps.png", caption: "RDF: Zn–Water (280–340 K)" },
-          { src: "/images/rdf-zn-ligand-temps.png", caption: "RDF: Zn–Ligand (280–340 K)" },
+          { src: "/images/rdf-zn-so4-temps.png", caption: "Zn–SO₄: g(r) ≈ 32 at all T" },
+          { src: "/images/rdf-zn-water-temps.png", caption: "Zn–Water: g(r) ≈ 4.7 stable" },
         ],
       },
-      {
-        kind: "callout",
-        text: "Zn–Water RDF: peak at r ≈ 0.2 nm stable across all temperatures (g(r) ≈ 4.7). Zn–Ligand: 280 K shows highest peak (g(r) ≈ 2.0), peaks decrease with temperature — thermal disruption of coordination.",
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
-  // — RDF: SO4 & FIRST SHELL PEAK (multi-T data)
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "RDF: Sulphate & First Shell Peak — Temperature Dependence",
-    content: [
       {
         kind: "dualImage",
         images: [
-          { src: "/images/rdf-zn-so4-temps.png", caption: "RDF: Zn–SO₄ (280–340 K)" },
-          { src: "/images/rdf-coordination-shell-temps.png", caption: "First Coordination Shell Peak Variation" },
-        ],
-      },
-      {
-        kind: "table",
-        headers: ["Temp (K)", "Ligand Peak g(r)", "SO₄ Peak g(r)", "Coordination Trend"],
-        rows: [
-          ["280", "2.0", "32", "Strongest coordination — low thermal energy"],
-          ["300", "0.9", "32", "Standard reference — solvation shell stable"],
-          ["320", "0.7", "31", "Moderate disruption — thermal broadening"],
-          ["340", "0.9", "31", "Partial recovery — complex restructuring"],
+          { src: "/images/rdf-zn-ligand-temps.png", caption: "Zn–Ligand: 280 K peak (g(r) ≈ 2.0)" },
+          { src: "/images/rdf-coordination-shell-temps.png", caption: "First Shell Peak Variation" },
         ],
       },
       {
         kind: "callout",
-        text: "280 K shows strongest Zn–Ligand coordination (g(r) ≈ 2.0 vs ≈ 0.9 at higher T). SO₄ dominance is stable across all temperatures. First shell peak variation confirms temperature-dependent solvation shell restructuring.",
+        text: "SO₄ & Water coordination stable across T. Ligand coordination strongest at 280 K (g(r) ≈ 2.0) — thermal disruption at higher T.",
       },
     ],
   },
