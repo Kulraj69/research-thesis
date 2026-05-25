@@ -34,7 +34,7 @@ export const slides = [
         steps: [
           { label: "Problem", detail: "Zn²⁺ solvation shell\ncontrols battery fate" },
           { label: "AZIB Challenges", detail: "HER, dendrites\npassivation at Zn anode" },
-          { label: "Simulation", detail: "GROMACS MD\n14,696 atoms × 4 temps" },
+          { label: "Simulation", detail: "GROMACS MD\n14,696 atoms at 300 K" },
           { label: "Validation", detail: "Density, T, E\nZn-S distance" },
         ],
       },
@@ -42,14 +42,14 @@ export const slides = [
         kind: "pipeline",
         steps: [
           { label: "Structure", detail: "RDF analysis\n3 ligand pairs" },
-          { label: "Diffusion", detail: "MSD → D\nAnomaly at 340 K" },
-          { label: "Mechanism", detail: "3 hypotheses\nStokes-Einstein" },
+          { label: "Diffusion", detail: "MSD → D\nat 300 K" },
+          { label: "Coordination", detail: "Shell hierarchy\nSO₄ vs Thiourea" },
           { label: "Conclusions", detail: "Battery design\nimplications" },
         ],
       },
       {
         kind: "callout",
-        text: "Central question: Why does Zn²⁺ complex diffusion decrease at 340 K when it should increase with temperature? What structural reorganization drives this anomaly?",
+        text: "Central question: What is the solvation structure around Zn²⁺ in thiourea-containing electrolyte, and which ligand dominates the first coordination shell?",
       },
     ],
   },
@@ -182,10 +182,10 @@ export const slides = [
             "Solvation shell snapshots available at 300 K",
           ]},
           { title: "What We Aim to Study", color: "amber", items: [
-            "How does the coordination shell change with temperature?",
-            "Does diffusion scale normally with heating?",
-            "Which ligand binds most strongly at high T?",
-            "What drives anomalous transport above 320 K?",
+            "What is the coordination shell structure around Zn²⁺?",
+            "Which ligand dominates the first solvation shell?",
+            "What role does thiourea actually play?",
+            "How does Zn²⁺ diffusion behave in this electrolyte?",
           ]},
         ],
       },
@@ -213,7 +213,7 @@ export const slides = [
           kind: "numbered",
           items: [
             "Build & validate an MD model of 2M ZnSO₄ + thiourea in water (14,696 atoms, ~5 nm box)",
-            "Simulate at 280, 300, 320, 340 K — 100 ns production each (400 ns total)",
+            "Simulate at 280, 300, 320, 340 K — 10 ns production each (40 ns total)",
             "Characterize structure via RDF: Zn–S, Zn–O(SO₄), Zn–O(H₂O)",
             "Quantify dynamics via MSD → diffusion coefficients D(T)",
             "Explain diffusion anomaly via mechanistic hypotheses",
@@ -223,8 +223,8 @@ export const slides = [
           kind: "table",
           headers: ["Parameter", "Value"],
           rows: [
-            ["Total sim. time", "4 × 100 ns = 400 ns"],
-            ["Frames collected", "4 × 100,000 = 400,000"],
+            ["Total sim. time", "4 × 10 ns = 40 ns"],
+            ["Frames collected", "4 × 10,000 = 40,000"],
             ["Atoms per system", "14,696"],
             ["Box size (initial)", "5.0³ nm³"],
             ["Concentration", "~2 M ZnSO₄"],
@@ -273,7 +273,7 @@ export const slides = [
       },
       {
         kind: "callout",
-        text: "Each timestep (2 fs): compute all forces → update velocities → update positions → repeat. Over 100 ns = 50 million steps per temperature.",
+        text: "Each timestep (2 fs): compute all forces → update velocities → update positions → repeat. Over 10 ns = 5 million steps.",
       },
     ],
   },
@@ -320,8 +320,8 @@ export const slides = [
           { label: "Packmol", detail: "Random placement\nin 5 nm³ box" },
           { label: "Minimize", detail: "Steepest descent\nFmax < 1000" },
           { label: "NVT 500 ps", detail: "V-rescale\nT → 298 K" },
-          { label: "NPT 500 ps", detail: "Berendsen\nρ → 1394 kg/m³" },
-          { label: "Production", detail: "100 ns NPT\n100k frames" },
+          { label: "NPT 3 ns", detail: "Berendsen\nρ → 1390 kg/m³" },
+          { label: "Production", detail: "10 ns NPT\n10k frames" },
           { label: "Analysis", detail: "RDF, MSD\nEnergy, CN" },
         ],
       },
@@ -330,10 +330,10 @@ export const slides = [
         headers: ["Stage", "Duration", "Key Metric"],
         rows: [
           ["Minimization", "~5,000 steps", "Fmax < 1000 kJ/mol/nm"],
-          ["NVT equil.", "500 ps", "T = 298.111 ± 3 K"],
-          ["NPT equil.", "500 ps", "ρ = 1393.7 ± 5 kg/m³"],
-          ["Production", "100 ns × 4", "100k frames each"],
-          ["Total MD time", "402 ns", "400 ns production"],
+          ["NVT equil.", "500 ps", "T = 299.86 ± 3.13 K"],
+          ["NPT equil.", "3 ns", "ρ = 1389.7 ± 4.5 kg/m³"],
+          ["Production", "10 ns × 4", "10k frames each"],
+          ["Total MD time", "40 ns", "40 ns production"],
         ],
       },
     ],
@@ -380,20 +380,20 @@ export const slides = [
         kind: "table",
         headers: ["Criterion", "Simulation", "Reference", "Δ", "✓/✗"],
         rows: [
-          ["Water density (300 K)", "1.00 g/cm³", "0.997 g/cm³ (exp.)", "+0.3%", "✓"],
-          ["Zn-S first peak", "2.2–2.3 Å", "2.3–2.4 Å (X-ray)", "−0.1 Å", "✓"],
-          ["NVT temperature", "298.111 K", "298.000 K (target)", "+0.04%", "✓"],
-          ["Energy drift (50 ns)", "< 0.01%", "< 0.1% threshold", "10× margin", "✓"],
-          ["NPT density", "1393.7 ± 5 kg/m³", "2M ZnSO₄ expected", "Consistent", "✓"],
+          ["NVT temperature", "299.86 ± 3.13 K", "300 K (target)", "−0.05%", "✓"],
+          ["NPT density", "1389.7 ± 4.5 kg/m³", "2M ZnSO₄ expected", "Consistent", "✓"],
+          ["E_min final", "−600,328 kJ/mol", "Converged plateau", "1,249 steps", "✓"],
+          ["NPT pressure", "−3.8 ± 356 bar", "0 bar target", "Normal fluct.", "✓"],
           ["Box shrinkage", "5.00 → 4.71 nm", "Expected for 2M", "−5.9%", "✓"],
-          ["Pressure (NPT)", "1.0 ± 50 bar", "1.0 bar target", "Normal fluct.", "✓"],
-          ["Zn²⁺ complex D", "0.011 × 10⁻⁵", "Literature Zn²⁺(aq)", "Reduced mobility", "✓"],
-          ["SO₄²⁻ coordination", "g(r) ≈ 32", "Strong ion pair", "Dominant", "✓"],
+          ["Zn–Water g(r)", "4.725 at 0.206 nm", "Literature range", "Consistent", "✓"],
+          ["Zn–SO₄ g(r)", "30.1 at 0.176 nm", "Strong ion pair", "Dominant", "✓"],
+          ["Zn–Thiourea g(r)", "1.649 at 0.228 nm", "Outer-shell", "Weaker", "✓"],
+          ["MSD (Zn²⁺)", "0.644 nm² at 10 ns", "Linear regime", "Diffusive", "✓"],
         ],
       },
       {
         kind: "callout",
-        text: "The 0.1 Å underestimate in Zn-S is typical for classical LJ potentials (Lorentz-Berthelot). The reduced diffusion coefficient confirms a stable, bulky coordination complex is forming: [Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ].",
+        text: "All validation criteria pass at 300 K. SO₄²⁻ dominates the first coordination shell (g(r) ≈ 30), confirming a stable coordination complex: [Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ].",
       },
     ],
   },
@@ -521,7 +521,7 @@ export const slides = [
           kind: "bullets",
           title: "Coordination Hierarchy",
           items: [
-            "Sulphate dominates: g(r) ≈ 30 at r = 0.176 nm",
+            "Sulphate: peak at r = 0.176 nm (strongest coordination)",
             "Water: g(r) ≈ 4.7 at r = 0.206 nm (2nd strongest)",
             "Thiourea: g(r) ≈ 1.6 at r = 0.228 nm (weakest)",
             "Sulphate 1st shell: closest to Zn²⁺ (smallest r)",
@@ -538,111 +538,65 @@ export const slides = [
   },
 
   // ──────────────────────────────────────────
-  // 17 — Zn–Water RDF (all temps)
+  // 17 — RDF RESULTS SUMMARY AT 300 K
   // ──────────────────────────────────────────
   {
     type: "body",
-    heading: "RDF: Zn²⁺ – Water (Temperature Dependence)",
+    heading: "RDF Results Summary — 300 K",
     content: [
       {
-        kind: "split",
-        left: { kind: "chart", chartType: "znWaterTempRDF" },
-        right: {
-          kind: "table",
-          headers: ["T (K)", "g(r) peak", "Position", "Δ from 280 K"],
-          rows: [
-            ["280", "4.80", "0.200 nm", "—"],
-            ["300", "4.75", "0.200 nm", "−1%"],
-            ["320", "4.70", "0.201 nm", "−2%"],
-            ["340", "4.60", "0.201 nm", "−4%"],
-          ],
-        },
+        kind: "table",
+        headers: ["Pair", "Peak Position (nm)", "Peak g(r)", "1st Min (nm)", "Interpretation"],
+        rows: [
+          ["Zn²⁺–SO₄²⁻", "0.176", "30.1", "0.270", "Dominant — strong ion pairing"],
+          ["Zn²⁺–Water (O)", "0.206", "4.725", "0.312", "Stable solvation backbone"],
+          ["Zn²⁺–Thiourea", "0.228", "1.649", "0.290", "Weak — outer-shell coordination"],
+        ],
       },
       {
-        kind: "callout",
-        text: "Water coordination is remarkably stable across the temperature range — only 4% decrease from 280 to 340 K. Water remains a reliable second-shell ligand, showing minimal thermal disruption.",
+        kind: "columns",
+        cols: [
+          { title: "Key Findings", color: "lime", items: [
+            "SO₄²⁻ is the dominant 1st shell ligand (g(r) ≈ 30)",
+            "Water forms stable 2nd coordination layer",
+            "Thiourea coordination is weak (g(r) < 2)",
+            "All RDFs converge to g(r) = 1 at large r",
+          ]},
+          { title: "Implications", color: "amber", items: [
+            "Thiourea acts as outer-shell modifier, not inner-shell",
+            "Sulphate controls the coordination geometry",
+            "Complex structure: [Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ]",
+            "Peak positions consistent with literature ionic radii",
+          ]},
+        ],
       },
     ],
   },
 
   // ──────────────────────────────────────────
-  // 18 — Zn–Thiourea RDF (all temps)
+  // 19 — MSD ANALYSIS
   // ──────────────────────────────────────────
   {
     type: "body",
-    heading: "RDF: Zn²⁺ – Thiourea (Temperature Dependence)",
+    heading: "Mean Square Displacement — MSD Analysis at 300 K",
     content: [
       {
         kind: "split",
-        left: { kind: "chart", chartType: "rdfTemp" },
-        right: {
-          kind: "table",
-          headers: ["T (K)", "g(r) peak", "Δ from 280 K", "Estimated CN"],
-          rows: [
-            ["280", "2.00", "—", "~4 (Tetrahedral)"],
-            ["300", "1.50", "−25%", "~4 (Tetrahedral)"],
-            ["320", "1.20", "−40%", "~4–5 (Mixed)"],
-            ["340", "0.85", "−57%", "~5–6 (Octahedral)"],
-          ],
+        left: {
+          kind: "image",
+          src: "/images/msd-zn-300.png",
+          alt: "MSD of Zn²⁺ at 300 K — 10 ns trajectory",
         },
-      },
-      {
-        kind: "callout",
-        text: "Thiourea is the most thermally labile ligand — 57% peak reduction from 280→340 K vs only 4% for water. The S-donor bond weakens dramatically above 320 K. Peak position stays constant at 0.22–0.23 nm (consistent with X-ray 2.3–2.4 Å).",
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
-  // 19 — COMPETITIVE COORDINATION (overlay)
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Competitive Coordination — RDF Overlay at 300 K",
-    content: [
-      {
-        kind: "split",
-        left: { kind: "chart", chartType: "rdfOverlay" },
-        right: {
-          kind: "bullets",
-          title: "Coordination Hierarchy",
-          items: [
-            "SO₄²⁻: g(r) ≈ 32 at 0.17 nm — DOMINANT",
-            "Water: g(r) ≈ 4.75 at 0.20 nm — stable backbone",
-            "Thiourea: g(r) ≈ 2.0 at 0.22 nm — weakest, labile",
-            "SO₄²⁻ is 16× stronger than thiourea",
-            "Coulombic (+2/−2) >> soft S-donor",
-            "Complex: [Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ]^(2−2n)",
-          ],
-        },
-      },
-      {
-        kind: "callout",
-        text: "KEY REVEAL: Sulfate — not thiourea — is the dominant first-shell ligand. The additive's role is secondary/regulatory, not primary coordination. This fundamentally changes the mechanistic picture.",
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
-  // 20 — MSD ANALYSIS
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Mean Square Displacement — MSD Analysis",
-    content: [
-      {
-        kind: "split",
-        left: { kind: "chart", chartType: "msdCurves" },
         right: {
           kind: "bullets",
           title: "MSD → Diffusion Coefficient",
           items: [
             "MSD(t) = ⟨|r(t) − r(0)|²⟩ averaged over all Zn²⁺",
             "Linear regime (Fickian diffusion): MSD = 6Dt",
-            "Slope of MSD vs t → 6D",
-            "Higher D = faster diffusion = more mobile complex",
-            "Computed via gmx msd over 100 ns trajectories",
-            "150 Zn²⁺ ions averaged per temperature",
+            "MSD at 10 ns = 0.644 nm²",
+            "Computed via gmx msd over 10 ns trajectory",
+            "150 Zn²⁺ ions averaged",
+            "Clear ballistic → diffusive transition",
           ],
         },
       },
@@ -654,136 +608,19 @@ export const slides = [
   },
 
   // ──────────────────────────────────────────
-  // 21 — DIFFUSION RESULTS (bar chart)
+  // 21 — PRACTICAL BATTERY IMPLICATIONS
   // ──────────────────────────────────────────
   {
     type: "body",
-    heading: "Diffusion Coefficients — The Anomaly at 340 K",
-    content: [
-      {
-        kind: "split",
-        left: { kind: "chart", chartType: "diffusionBar" },
-        right: {
-          kind: "table",
-          headers: ["T (K)", "D (×10⁻⁵ cm²/s)", "ΔD", "Regime"],
-          rows: [
-            ["280", "0.00825", "—", "Baseline"],
-            ["300", "0.01130", "+37.0%", "Expected ✓"],
-            ["320", "0.01380", "+22.1%", "Expected ✓"],
-            ["340", "0.01290", "−6.5%", "ANOMALOUS"],
-          ],
-          highlight: 3,
-        },
-      },
-      {
-        kind: "columns",
-        cols: [
-          { title: "280–320 K: Normal", color: "lime", items: [
-            "Monotonic increase as expected with temperature",
-            "Ea ≈ 15–18 kJ/mol (diffusion-limited)",
-            "Consistent with thermal activation",
-          ]},
-          { title: "340 K: Anomalous", color: "amber", items: [
-            "D drops 6.5% despite +20 K increase",
-            "3× larger than expected thermal noise",
-            "Central finding of this thesis",
-          ]},
-        ],
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
-  // 22 — MECHANISTIC HYPOTHESES (3 boxes)
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Three Mechanistic Hypotheses",
-    content: [
-      {
-        kind: "columns",
-        cols: [
-          { title: "H1: Entropy-Driven CN Increase", color: "lime", items: [
-            "Ligand binding releases water → ΔS > 0",
-            "High T amplifies TΔS term",
-            "More ligands bind → larger complex",
-            "D ∝ 1/rH → D decreases",
-            "Ding et al. (2024): ΔCN = 0.24",
-          ]},
-          { title: "H2: SO₄²⁻-Bridged Dimers", color: "amber", items: [
-            "SO₄²⁻ bridges two Zn²⁺ centers",
-            "Dimer: [Zn₂(SO₄)y(H₂O)x]",
-            "2× volume → D drops ~21%",
-            "Only 30% dimerization needed",
-            "Precedent: CuSO₄, MgSO₄ systems",
-          ]},
-          { title: "H3: H-Bond Restructuring", color: "blue", items: [
-            "T > 320 K: water network reorganizes",
-            "Enhanced local ordering around ion",
-            "η_local > η_bulk around complex",
-            "Reduces D without size change",
-            "Analogous to ionic liquid behavior",
-          ]},
-        ],
-      },
-      {
-        kind: "table",
-        headers: ["Hypothesis", "Mechanism", "Predicted ΔD", "Test"],
-        rows: [
-          ["H1", "CN increase → larger rH", "−14% (full)", "RDF integration → CN(T)"],
-          ["H2", "SO₄ bridging → dimer", "−21% (full dimer)", "Zn–Zn RDF at 340 K"],
-          ["H3", "Local η increase", "Variable", "Velocity autocorrelation"],
-          ["Combined", "Partial H1 + H2 + H3", "−6.5% (obs.)", "All + AIMD validation"],
-        ],
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
-  // 24 — STOKES-EINSTEIN BREAKDOWN
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Stokes-Einstein Breakdown at 340 K",
-    content: [
-      {
-        kind: "equation",
-        tex: "D = kBT / (6πηrH)  →  if T↑ and η↓, then D should ↑",
-      },
-      {
-        kind: "split",
-        left: { kind: "chart", chartType: "stokesEinstein" },
-        right: { kind: "chart", chartType: "hydroRadius" },
-      },
-      {
-        kind: "table",
-        headers: ["Factor", "320 → 340 K", "Effect on D", "Magnitude"],
-        rows: [
-          ["Temperature ↑", "+6.3%", "↑ D (numerator)", "+6.3%"],
-          ["Viscosity η ↓", "−10%", "↑ D (denominator)", "+10%"],
-          ["Net predicted", "", "↑ D", "+17%"],
-          ["Observed", "", "↓ D", "−6.5%"],
-          ["Implied ΔrH", "", "rH must grow", "+14%"],
-        ],
-        highlight: 3,
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
-  // 25 — PRACTICAL BATTERY IMPACT
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Practical Impact on Battery Design",
+    heading: "Implications for Battery Design",
     content: [
       {
         kind: "pipeline",
         steps: [
           { label: "Electrolyte", detail: "ZnSO₄ + thiourea\n2M aqueous" },
-          { label: "Solvation Shell", detail: "SO₄²⁻ dominated\nthiourea labile" },
+          { label: "Solvation Shell", detail: "SO₄²⁻ dominated\nat 300 K" },
           { label: "HER / SEI", detail: "Water displacement\npassivation layer" },
-          { label: "Performance", detail: "Anomaly observed\nabove 320 K" },
+          { label: "Design", detail: "Additive role\nclarified" },
         ],
       },
       {
@@ -791,15 +628,15 @@ export const slides = [
         headers: ["Property", "Controlled By", "This Work's Finding"],
         rows: [
           ["HER rate", "H₂O in 1st shell", "SO₄²⁻ displaces water → suppresses HER"],
-          ["Anode stability", "SEI composition", "Coordination reorganizes at T > 320 K"],
-          ["Ionic transport", "D of Zn²⁺ complex", "Anomalous: D drops 6.5% at 340 K"],
-          ["Deposition", "Desolvation kinetics", "Larger complex → slower desolvation at high T"],
-          ["Thermal window", "Transport / HER balance", "Optimal operating range: 300–320 K"],
+          ["Coordination", "Ligand binding strength", "SO₄²⁻ >> Water >> Thiourea in 1st shell"],
+          ["Thiourea role", "Outer-shell modifier", "g(r) = 1.6 — does not dominate coordination"],
+          ["Zn²⁺ mobility", "MSD at 300 K", "MSD = 0.644 nm² at 10 ns — slow complex"],
+          ["Complex structure", "RDF peak hierarchy", "[Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ] confirmed"],
         ],
       },
       {
         kind: "callout",
-        text: "Room-temperature optimization may fail at operating temperatures. Linear extrapolation underestimates rH by ~14% at 340 K — ionic conductivity models must account for coordination reorganization.",
+        text: "Thiourea's role is secondary — it modifies the outer coordination shell rather than directly coordinating Zn²⁺. Electrolyte design should account for SO₄²⁻ dominance in the first shell.",
       },
     ],
   },
@@ -816,25 +653,25 @@ export const slides = [
         left: {
           kind: "numbered",
           items: [
-            "✓ Validated MD model: Zn-S 2.2–2.3 Å, ρ = 1393.7 kg/m³, E drift < 0.01%",
-            "✓ SO₄²⁻ dominates 1st shell: g(r) ≈ 32, 16× stronger than thiourea",
-            "✓ Diffusion anomaly: D ↑37%, ↑22% (280–320 K) then ↓6.5% at 340 K",
-            "✓ Anomalous diffusion: structural reorganization, not just thermal scatter",
-            "✓ Battery implication: simple extrapolation fails above 320 K",
+            "✓ Validated MD model at 300 K: density = 1389.7 kg/m³, T = 299.86 K",
+            "✓ SO₄²⁻ dominates 1st shell: g(r) ≈ 30 at r = 0.176 nm",
+            "✓ Water forms stable 2nd coordination: g(r) ≈ 4.7 at r = 0.206 nm",
+            "✓ Thiourea is outer-shell modifier: g(r) ≈ 1.6 at r = 0.228 nm",
+            "✓ MSD confirms slow Zn²⁺ complex diffusion (0.644 nm² at 10 ns)",
           ],
         },
         right: {
           kind: "table",
           headers: ["Key Metric", "Value"],
           rows: [
-            ["D anomaly at 340 K", "−6.5%"],
-            ["SO₄²⁻ g(r) peak", "≈ 32 (dominant)"],
-            ["Thiourea Δg(r)", "−57% (280→340 K)"],
-            ["Water Δg(r)", "−4% (280→340 K)"],
-            ["Required ΔrH", "+14% growth"],
-            ["Dimerization needed", "~30% partial"],
-            ["Ea (280–320 K)", "15–18 kJ/mol"],
-            ["Total MD time", "400 ns production"],
+            ["Sulphate g(r) peak", "≈ 30 at r = 0.176 nm"],
+            ["Water g(r) peak", "≈ 4.7 at r = 0.206 nm"],
+            ["Thiourea g(r) peak", "≈ 1.6 at r = 0.228 nm"],
+            ["MSD (Zn²⁺, 300 K)", "0.644 nm² at 10 ns"],
+            ["NPT Density", "1389.7 ± 4.5 kg/m³"],
+            ["NVT Temperature", "299.86 ± 3.13 K"],
+            ["E_min final", "−600,328 kJ/mol"],
+            ["Total MD time", "10 ns production"],
           ],
         },
       },

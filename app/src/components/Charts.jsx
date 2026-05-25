@@ -414,7 +414,7 @@ export function DiffusionBarChart() {
           ))}
         </Bar>
         <ReferenceLine y={0.01610} stroke={MUTED} strokeDasharray="5 3" strokeWidth={1}>
-          <Label value="Arrhenius predicted for 340 K" position="insideTopRight" style={{ ...fs, fill: RED, fontSize: 8, fontWeight: 600 }} />
+          <Label value="Predicted for 340 K" position="insideTopRight" style={{ ...fs, fill: RED, fontSize: 8, fontWeight: 600 }} />
         </ReferenceLine>
       </BarChart>
     </ResponsiveContainer>
@@ -454,7 +454,7 @@ export function ArrheniusScatter() {
           label={{ value: "ln(D × 10⁻⁵)", angle: -90, position: "insideLeft", style: { ...fs, fill: MUTED } }} />
         <Tooltip contentStyle={ttStyle} />
         <Legend wrapperStyle={{ ...fs, paddingTop: 0 }} />
-        <Line data={fitLine} dataKey="lnD" stroke="#bbb" strokeDasharray="6 3" strokeWidth={1.5} dot={false} name="Arrhenius fit (280–320)" />
+        <Line data={fitLine} dataKey="lnD" stroke="#bbb" strokeDasharray="6 3" strokeWidth={1.5} dot={false} name="Linear fit (280–320)" />
         <Line data={normal} dataKey="lnD" stroke={LIME} strokeWidth={0} dot={{ r: 6, fill: LIME, stroke: LIME }} name="280–320 K (linear)" />
         <Line data={predicted340} dataKey="lnD" stroke={MUTED} strokeWidth={0} dot={{ r: 5, fill: "none", stroke: MUTED, strokeWidth: 2, strokeDasharray: "3 2" }} name="Predicted 340 K" />
         <Line data={anomalous} dataKey="lnD" stroke={RED} strokeWidth={0} dot={{ r: 8, fill: RED, stroke: "#7a0000", strokeWidth: 2 }} name="340 K OBSERVED (↓6.5%)" />
@@ -538,7 +538,7 @@ export function StokesEinsteinChart() {
           label={{ value: "D (×10⁻⁵)", angle: -90, position: "insideLeft", style: { ...fs, fill: MUTED }, offset: -2 }} />
         <Tooltip contentStyle={ttStyle} formatter={(v) => v.toFixed(5)} />
         <Legend wrapperStyle={{ ...fs, paddingTop: 0 }} />
-        <Bar dataKey="expected" name="Predicted (Arrhenius)" fill={LIME} radius={[3, 3, 0, 0]} />
+        <Bar dataKey="expected" name="Predicted" fill={LIME} radius={[3, 3, 0, 0]} />
         <Bar dataKey="actual" name="Observed" fill={RED} radius={[3, 3, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
