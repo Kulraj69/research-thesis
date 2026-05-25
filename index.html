@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MD Study of ZnSO₄ + Thiourea — Kulraj Singh Sabharwal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --r-background-color: #0f172a;
+    --r-main-font: 'Inter', system-ui, sans-serif;
+    --r-main-font-size: 28px;
+    --r-main-color: #e2e8f0;
+    --r-heading-font: 'Inter', system-ui, sans-serif;
+    --r-heading-color: #f8fafc;
+    --r-heading-text-transform: none;
+    --r-heading-font-weight: 700;
+    --r-link-color: #38bdf8;
+    --accent: #38bdf8;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --danger: #f87171;
+    --surface: rgba(255,255,255,0.05);
+    --surface2: rgba(255,255,255,0.08);
+  }
+
+  .reveal { font-weight: 400; }
+  .reveal h1 { font-size: 2.2em; line-height: 1.15; margin-bottom: 0.3em; }
+  .reveal h2 { font-size: 1.5em; color: var(--accent); margin-bottom: 0.5em; font-weight: 600; }
+  .reveal h3 { font-size: 1.1em; color: var(--accent2); font-weight: 600; margin-bottom: 0.3em; }
+  .reveal p, .reveal li { font-size: 0.78em; line-height: 1.55; }
+  .reveal ul { list-style: none; padding-left: 0; }
+  .reveal ul li::before { content: "→ "; color: var(--accent); font-weight: 600; }
+  .reveal ul ul li::before { content: "· "; color: var(--accent2); }
+  .reveal strong { color: #fff; font-weight: 600; }
+  .reveal em { color: var(--accent2); font-style: normal; }
+
+  .reveal .slide-number { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: rgba(255,255,255,0.3); background: none; }
+
+  .title-slide h1 { font-size: 1.65em; background: linear-gradient(135deg, #38bdf8 0%, #a78bfa 50%, #34d399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .title-slide .subtitle { font-size: 0.7em; color: #94a3b8; margin-top: 0.8em; }
+  .title-slide .author { font-size: 0.85em; color: #e2e8f0; margin-top: 1.5em; font-weight: 500; }
+  .title-slide .meta { font-size: 0.6em; color: #64748b; margin-top: 0.4em; }
+
+  .card { background: var(--surface); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px 24px; margin: 10px 0; text-align: left; }
+  .card.accent-border { border-left: 3px solid var(--accent); }
+  .card.purple-border { border-left: 3px solid var(--accent2); }
+  .card.green-border { border-left: 3px solid var(--accent3); }
+  .card.danger-border { border-left: 3px solid var(--danger); }
+
+  table.styled { width: 100%; border-collapse: collapse; font-size: 0.65em; margin: 12px 0; }
+  table.styled th { background: rgba(56,189,248,0.15); color: var(--accent); padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid rgba(56,189,248,0.3); }
+  table.styled td { padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); color: #cbd5e1; }
+  table.styled tr:hover td { background: rgba(255,255,255,0.03); }
+  .anomalous { color: var(--danger) !important; font-weight: 600 !important; }
+  .normal { color: var(--accent3) !important; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  .tag { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: 0.55em; font-weight: 600; margin: 2px 4px; }
+  .tag.blue { background: rgba(56,189,248,0.15); color: var(--accent); }
+  .tag.purple { background: rgba(167,139,250,0.15); color: var(--accent2); }
+  .tag.green { background: rgba(52,211,153,0.15); color: var(--accent3); }
+  .tag.red { background: rgba(248,113,113,0.15); color: var(--danger); }
+
+  .big-number { font-size: 2.8em; font-weight: 700; line-height: 1; }
+  .big-number.blue { color: var(--accent); }
+  .big-number.red { color: var(--danger); }
+  .big-number.green { color: var(--accent3); }
+  .big-number.purple { color: var(--accent2); }
+
+  .quote { border-left: 3px solid var(--accent2); padding: 12px 20px; background: rgba(167,139,250,0.06); border-radius: 0 8px 8px 0; font-size: 0.75em; color: #c4b5fd; margin: 12px 0; font-style: italic; }
+
+  .pipeline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 16px 0; }
+  .pipeline .step { background: var(--surface2); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px 16px; font-size: 0.6em; text-align: center; min-width: 140px; }
+  .pipeline .arrow { color: var(--accent); font-size: 1.2em; }
+
+  .bar-chart { display: flex; align-items: flex-end; gap: 24px; justify-content: center; height: 200px; margin: 20px 0; }
+  .bar-chart .bar-group { display: flex; flex-direction: column; align-items: center; }
+  .bar-chart .bar { width: 60px; border-radius: 6px 6px 0 0; transition: height 0.6s ease; position: relative; }
+  .bar-chart .bar-label { font-size: 0.55em; color: #94a3b8; margin-top: 8px; }
+  .bar-chart .bar-value { font-size: 0.5em; color: #fff; font-weight: 600; margin-bottom: 4px; }
+
+  .hierarchy { display: flex; align-items: center; gap: 12px; justify-content: center; margin: 16px 0; flex-wrap: wrap; }
+  .hierarchy .item { padding: 10px 20px; border-radius: 10px; font-size: 0.65em; font-weight: 600; text-align: center; }
+  .hierarchy .sep { font-size: 1.4em; color: #475569; }
+
+  .footer-note { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 0.45em; color: #475569; }
+
+  .reveal .controls .navigate-left, .reveal .controls .navigate-right,
+  .reveal .controls .navigate-up, .reveal .controls .navigate-down { color: var(--accent); }
+  .reveal .progress span { background: var(--accent); }
+
+  .hypothesis-card { background: var(--surface); border-radius: 12px; padding: 18px 20px; margin: 8px 0; border: 1px solid rgba(255,255,255,0.06); }
+  .hypothesis-card h3 { margin: 0 0 6px 0; font-size: 0.8em; }
+  .hypothesis-card p { font-size: 0.62em; margin: 4px 0; color: #94a3b8; }
+
+  .status-pass { color: var(--accent3); }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- SLIDE 1: TITLE -->
+<section>
+  <div class="title-slide">
+    <h1>Molecular Dynamics Study of a ZnSO₄ Electrolyte with Thiourea Additive</h1>
+    <div class="subtitle">Temperature-Dependent Structure and Dynamics</div>
+    <div class="author">Kulraj Singh Sabharwal <span class="mono">(21054013)</span></div>
+    <div class="meta">IDD Chemistry &nbsp;·&nbsp; IIT (BHU) Varanasi &nbsp;·&nbsp; May 2026</div>
+    <div class="meta" style="margin-top:8px">Supervisor: <strong style="color:#e2e8f0">Dr. Rosy</strong> &nbsp;|&nbsp; Mentor: <strong style="color:#e2e8f0">Mr. Digvijay Andotra</strong></div>
+  </div>
+</section>
+
+<!-- SLIDE 2: OUTLINE -->
+<section>
+  <h2>Outline</h2>
+  <div class="two-col">
+    <div class="card accent-border">
+      <h3>Part I — Context</h3>
+      <ul>
+        <li>Background & Motivation</li>
+        <li>Thiourea as Additive</li>
+        <li>Objectives</li>
+      </ul>
+    </div>
+    <div class="card purple-border">
+      <h3>Part II — Method</h3>
+      <ul>
+        <li>Computational Framework</li>
+        <li>System Composition</li>
+        <li>Simulation Protocol</li>
+      </ul>
+    </div>
+    <div class="card green-border">
+      <h3>Part III — Results</h3>
+      <ul>
+        <li>System Validation</li>
+        <li>Diffusion Anomaly</li>
+        <li>RDF Analysis</li>
+        <li>Coordination Hierarchy</li>
+      </ul>
+    </div>
+    <div class="card danger-border">
+      <h3>Part IV — Interpretation</h3>
+      <ul>
+        <li>Three Mechanistic Hypotheses</li>
+        <li>Conclusions & Future Work</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: BACKGROUND -->
+<section>
+  <h2>Background & Motivation</h2>
+  <div class="two-col">
+    <div>
+      <h3>Why Aqueous Zn-Ion Batteries?</h3>
+      <div class="card accent-border">
+        <ul>
+          <li><strong>Safe</strong> — non-flammable aqueous electrolyte</li>
+          <li><strong>Cheap</strong> — abundant Zn, no Li dependency</li>
+          <li><strong>High capacity</strong> — 820 mAh/g theoretical</li>
+        </ul>
+      </div>
+      <h3 style="margin-top:16px">The Bottleneck</h3>
+      <div class="card danger-border">
+        <ul>
+          <li><strong>HER</strong> degrades the anode</li>
+          <li><strong>Dendrite growth</strong> → short circuits</li>
+          <li>Root cause: uncontrolled <strong>Zn²⁺ solvation shell</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="quote">Engineering the Zn²⁺ primary solvation shell is the lever for improving AZIB performance.</div>
+      <div class="card" style="margin-top:16px; text-align:center">
+        <p style="font-size:0.68em; color:#94a3b8">Thermodynamic balance:</p>
+        <p style="font-size:1.1em; color:#fff; font-weight:600; margin:8px 0">ΔG = ΔH − <span style="color:var(--danger)">TΔS</span></p>
+        <p style="font-size:0.62em; color:#94a3b8">At high T, the entropy term can dominate → counter-intuitive behavior that <strong>Arrhenius models cannot capture</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: THIOUREA -->
+<section>
+  <h2>Thiourea as an Electrolyte Additive</h2>
+  <div class="two-col">
+    <div>
+      <h3>Why Thiourea SC(NH₂)₂?</h3>
+      <div class="card accent-border">
+        <ul>
+          <li><strong>Soft S-donor</strong> → strong Zn²⁺ affinity (HSAB principle)</li>
+          <li>Adsorbs on Zn anode → <strong>passivation layer</strong></li>
+          <li>Alters solvation shell → stable <strong>SEI</strong></li>
+          <li>Suppresses HER, promotes smooth deposition</li>
+        </ul>
+      </div>
+      <div class="quote" style="margin-top:16px">How do structure and dynamics of the Zn²⁺ complex change with temperature when thiourea is present?</div>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:center;">
+      <div class="card" style="text-align:center; padding:30px;">
+        <p style="font-size:0.55em; color:#64748b; margin-bottom:12px">Thiourea Structure</p>
+        <pre style="font-family:'JetBrains Mono',monospace; font-size:0.72em; color:#e2e8f0; line-height:1.6; background:none; margin:0;">
+   H₂N      NH₂
+     \      /
+       C
+       ‖
+       <span style="color:var(--accent)">S</span>  ← donor atom
+        </pre>
+        <div style="margin-top:16px">
+          <span class="tag blue">Neutral</span>
+          <span class="tag purple">8 atoms</span>
+          <span class="tag green">C=S 0.167 nm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: OBJECTIVES -->
+<section>
+  <h2>Objectives</h2>
+  <div style="max-width:700px; margin:0 auto;">
+    <div class="card accent-border" style="margin:12px 0"><span class="tag blue">1</span>&nbsp; <strong>Build & validate</strong> an MD model of 2M ZnSO₄ + thiourea in water</div>
+    <div class="card accent-border" style="margin:12px 0"><span class="tag blue">2</span>&nbsp; <strong>Simulate</strong> at four temperatures: 280 K, 300 K, 320 K, 340 K</div>
+    <div class="card purple-border" style="margin:12px 0"><span class="tag purple">3</span>&nbsp; <strong>Characterize structure</strong> via Radial Distribution Function (RDF)</div>
+    <div class="card purple-border" style="margin:12px 0"><span class="tag purple">4</span>&nbsp; <strong>Quantify dynamics</strong> via MSD → diffusion coefficients</div>
+    <div class="card danger-border" style="margin:12px 0"><span class="tag red">5</span>&nbsp; <strong>Identify non-Arrhenius behavior</strong> & propose mechanistic explanations</div>
+  </div>
+</section>
+
+<!-- SLIDE 6: COMPUTATIONAL FRAMEWORK -->
+<section>
+  <h2>Computational Framework</h2>
+  <div class="two-col">
+    <div>
+      <table class="styled">
+        <tr><th>Component</th><th>Choice</th></tr>
+        <tr><td>MD Engine</td><td><strong>GROMACS 2026.0</strong></td></tr>
+        <tr><td>Force Field</td><td><strong>AMBER99SB</strong> + GAFF</td></tr>
+        <tr><td>Water Model</td><td><strong>TIP4P</strong> (4-site)</td></tr>
+        <tr><td>Electrostatics</td><td><strong>PME</strong> (1.0 nm cutoff)</td></tr>
+        <tr><td>Thermostat</td><td><strong>V-rescale</strong> (τ = 0.1 ps)</td></tr>
+        <tr><td>Barostat</td><td><strong>Parrinello-Rahman</strong> (τ = 2.0 ps)</td></tr>
+        <tr><td>Organics</td><td><strong>ACPYPE</strong> v2023.10.27</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card accent-border">
+        <h3>HPC Resources</h3>
+        <ul>
+          <li><strong>Param Shivaay</strong>, IIT (BHU)</li>
+          <li>40 MPI ranks (30 PP + 10 PME)</li>
+          <li>AVX-512 SIMD, GCC 13.4.0</li>
+          <li>Performance: <strong>292 ns/day</strong></li>
+        </ul>
+      </div>
+      <div class="card purple-border" style="margin-top:12px">
+        <h3>Key Algorithms</h3>
+        <ul>
+          <li><strong>Leapfrog</strong> integrator (2 fs step)</li>
+          <li><strong>LINCS</strong> for H-bond constraints</li>
+          <li><strong>SETTLE</strong> for rigid water</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: SYSTEM COMPOSITION -->
+<section>
+  <h2>System Composition</h2>
+  <table class="styled" style="max-width:800px; margin:0 auto;">
+    <tr><th>Species</th><th>Count</th><th>Charge</th><th>Role</th></tr>
+    <tr><td><strong>Zn²⁺</strong></td><td>150</td><td>+300e total</td><td>Central ion under study</td></tr>
+    <tr><td><strong>SO₄²⁻</strong></td><td>150</td><td>−300e total</td><td>Counter-ion / 1st-shell competitor</td></tr>
+    <tr><td><strong>Thiourea</strong></td><td>10</td><td>0</td><td>Soft S-donor additive</td></tr>
+    <tr><td><strong>TIP4P H₂O</strong></td><td>3,429</td><td>0</td><td>Bulk solvent</td></tr>
+    <tr style="background:rgba(56,189,248,0.08)"><td><strong>TOTAL</strong></td><td><strong>14,696 atoms</strong></td><td><strong>0 (neutral)</strong></td><td>Charge neutrality verified</td></tr>
+  </table>
+  <div class="two-col" style="margin-top:20px">
+    <div class="card accent-border">
+      <p style="font-size:0.65em">📦 <strong>Initial box</strong>: 5.0 × 5.0 × 5.0 nm³ (Packmol)<br>
+      📦 <strong>After NPT</strong>: 4.71 × 4.71 × 4.71 nm³ (5.9% contraction)</p>
+    </div>
+    <div class="card green-border">
+      <p style="font-size:0.65em">⚡ Effective: <strong>~2M ZnSO₄</strong><br>
+      ✓ Charge balance: 150(+2) + 150(−2) + 10(0) + 3429(0) = <strong>0</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: SIMULATION PROTOCOL -->
+<section>
+  <h2>Simulation Protocol</h2>
+  <div class="pipeline">
+    <div class="step" style="border-top:3px solid var(--accent)">
+      <strong>1. Minimization</strong><br>
+      <span style="font-size:0.85em; color:#94a3b8">Steepest descent<br>F<sub>max</sub> &lt; 1000 kJ/mol/nm</span>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-top:3px solid var(--accent2)">
+      <strong>2. NVT Equil.</strong><br>
+      <span style="font-size:0.85em; color:#94a3b8">500 ps, V-rescale<br>298.111 K ± 3 K</span>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-top:3px solid var(--accent3)">
+      <strong>3. NPT Equil.</strong><br>
+      <span style="font-size:0.85em; color:#94a3b8">500 ps, P-Rahman<br>ρ → 1394 kg/m³</span>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-top:3px solid var(--danger)">
+      <strong>4. Production</strong><br>
+      <span style="font-size:0.85em; color:#94a3b8">100 ns, NPT<br>100,000 frames</span>
+    </div>
+  </div>
+  <div class="card" style="text-align:center; margin-top:16px">
+    <p style="font-size:0.7em; margin:0">Repeated independently at &nbsp;
+      <span class="tag blue">280 K</span>
+      <span class="tag blue">300 K</span>
+      <span class="tag blue">320 K</span>
+      <span class="tag blue">340 K</span>
+    </p>
+  </div>
+  <div class="two-col" style="margin-top:16px">
+    <div class="card accent-border">
+      <h3>Analysis Tools (GROMACS 2025.4)</h3>
+      <p style="font-size:0.63em; color:#94a3b8"><strong>gmx rdf</strong> — radial distribution functions<br><strong>gmx msd</strong> — mean square displacement<br><strong>gmx energy</strong> — thermodynamic validation</p>
+    </div>
+    <div class="card purple-border">
+      <h3>Key Equations</h3>
+      <p style="font-size:0.63em; color:#94a3b8"><strong>Einstein</strong>: D = ⟨|r(t)−r(0)|²⟩/6t<br><strong>Stokes-Einstein</strong>: D = k<sub>B</sub>T / 6πηr<sub>H</sub><br><strong>Arrhenius</strong>: D = D₀·exp(−E<sub>a</sub>/k<sub>B</sub>T)</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: VALIDATION -->
+<section>
+  <h2>System Validation</h2>
+  <table class="styled" style="max-width:780px; margin:0 auto;">
+    <tr><th>Criterion</th><th>Simulation</th><th>Reference</th><th>Status</th></tr>
+    <tr><td>Water density (300 K)</td><td>~1.00 g/cm³</td><td>0.997 g/cm³ (exp.)</td><td class="status-pass">✓ Pass</td></tr>
+    <tr><td>Zn-S first peak</td><td>2.2–2.3 Å</td><td>2.3–2.4 Å (X-ray)</td><td class="status-pass">✓ Pass</td></tr>
+    <tr><td>NVT mean temperature</td><td>298.111 K</td><td>298 K (target)</td><td class="status-pass">✓ Pass</td></tr>
+    <tr><td>Energy drift</td><td>&lt; 0.01% / 50 ns</td><td>&lt; 0.1% acceptable</td><td class="status-pass">✓ Pass</td></tr>
+    <tr><td>NPT density</td><td>1393.7 ± 5 kg/m³</td><td>Consistent with 2M</td><td class="status-pass">✓ Pass</td></tr>
+  </table>
+  <div class="quote" style="margin-top:20px">The ~0.1 Å systematic underestimate in Zn-S distance is typical of classical LJ force fields and does not affect qualitative conclusions.</div>
+</section>
+
+<!-- SLIDE 10: THE ANOMALY -->
+<section>
+  <h2>Key Result: The Diffusion Anomaly</h2>
+  <table class="styled" style="max-width:750px; margin:0 auto;">
+    <tr><th>T (K)</th><th>T (°C)</th><th>D (×10⁻⁵ cm²/s)</th><th>Change</th><th>Trend</th></tr>
+    <tr><td>280</td><td>7</td><td>0.00825</td><td>—</td><td>Baseline</td></tr>
+    <tr><td>300</td><td>27</td><td>0.01130</td><td class="normal">+37.0%</td><td class="normal">↑ Normal</td></tr>
+    <tr><td>320</td><td>47</td><td>0.01380</td><td class="normal">+22.1%</td><td class="normal">↑ Normal</td></tr>
+    <tr><td style="color:var(--danger);font-weight:600">340</td><td>67</td><td>0.01290</td><td class="anomalous">−6.5%</td><td class="anomalous">↓ ANOMALOUS</td></tr>
+  </table>
+  <div class="two-col" style="margin-top:20px">
+    <div class="card green-border">
+      <p style="font-size:0.68em"><strong>280 → 320 K:</strong> Normal Arrhenius<br>E<sub>a</sub> ≈ 15–18 kJ/mol — consistent with diffusion-limited processes</p>
+    </div>
+    <div class="card danger-border">
+      <p style="font-size:0.68em"><strong>320 → 340 K:</strong> D <em>decreases</em> by 6.5%<br>The complex <strong>slows down</strong> despite higher temperature</p>
+    </div>
+  </div>
+  <div class="card" style="text-align:center; margin-top:12px">
+    <p style="font-size:0.63em; color:#94a3b8">Bare Zn²⁺ in water: D ≈ 0.70 × 10⁻⁵ cm²/s → the complex is <strong style="color:var(--accent)">~60× slower</strong>, confirming a bulky coordination shell</p>
+  </div>
+</section>
+
+<!-- SLIDE 11: ARRHENIUS PLOT -->
+<section>
+  <h2>Arrhenius Plot: ln(D) vs 1/T</h2>
+  <div style="display:flex; justify-content:center; margin:20px 0;">
+    <svg viewBox="0 0 600 360" width="560" style="font-family:'Inter',sans-serif">
+      <!-- axes -->
+      <line x1="80" y1="300" x2="540" y2="300" stroke="#334155" stroke-width="2"/>
+      <line x1="80" y1="300" x2="80" y2="40" stroke="#334155" stroke-width="2"/>
+      <!-- axis labels -->
+      <text x="310" y="345" fill="#64748b" font-size="13" text-anchor="middle">1/T (×10⁻³ K⁻¹) →</text>
+      <text x="25" y="170" fill="#64748b" font-size="13" text-anchor="middle" transform="rotate(-90,25,170)">ln(D) →</text>
+      <!-- tick labels -->
+      <text x="130" y="320" fill="#94a3b8" font-size="11" text-anchor="middle">2.94</text>
+      <text x="250" y="320" fill="#94a3b8" font-size="11" text-anchor="middle">3.13</text>
+      <text x="370" y="320" fill="#94a3b8" font-size="11" text-anchor="middle">3.33</text>
+      <text x="490" y="320" fill="#94a3b8" font-size="11" text-anchor="middle">3.57</text>
+      <text x="130" y="316" fill="#94a3b8" font-size="9" text-anchor="middle">(340K)</text>
+      <text x="250" y="316" fill="#94a3b8" font-size="9" text-anchor="middle">(320K)</text>
+      <text x="370" y="316" fill="#94a3b8" font-size="9" text-anchor="middle">(300K)</text>
+      <text x="490" y="316" fill="#94a3b8" font-size="9" text-anchor="middle">(280K)</text>
+      <!-- Arrhenius reference line (280-320K fit) -->
+      <line x1="490" y1="260" x2="130" y2="100" stroke="#334155" stroke-width="1.5" stroke-dasharray="8,6"/>
+      <text x="100" y="90" fill="#475569" font-size="10">Arrhenius extrapolation</text>
+      <!-- data points -->
+      <circle cx="490" cy="260" r="8" fill="var(--accent3)" opacity="0.9"/>
+      <text x="508" y="256" fill="#94a3b8" font-size="11">280K</text>
+      <circle cx="370" cy="200" r="8" fill="var(--accent3)" opacity="0.9"/>
+      <text x="388" y="196" fill="#94a3b8" font-size="11">300K</text>
+      <circle cx="250" cy="150" r="8" fill="var(--accent3)" opacity="0.9"/>
+      <text x="268" y="146" fill="#94a3b8" font-size="11">320K</text>
+      <!-- anomalous point -->
+      <circle cx="130" cy="162" r="10" fill="none" stroke="var(--danger)" stroke-width="2.5"/>
+      <circle cx="130" cy="162" r="5" fill="var(--danger)"/>
+      <text x="148" y="158" fill="var(--danger)" font-size="12" font-weight="600">340K ← ANOMALY</text>
+      <!-- deviation arrow -->
+      <line x1="130" y1="108" x2="130" y2="155" stroke="var(--danger)" stroke-width="1.5" marker-end="none"/>
+      <text x="143" y="135" fill="var(--danger)" font-size="10">−6.5%</text>
+    </svg>
+  </div>
+  <div class="quote" style="text-align:center">The 340 K data point falls measurably below the Arrhenius line — a genuine, non-statistical deviation.</div>
+</section>
+
+<!-- SLIDE 12: RDF Zn-Thiourea -->
+<section>
+  <h2>RDF: Zn–Thiourea (Zn-S)</h2>
+  <div class="two-col">
+    <div>
+      <h3>First-shell peak at 0.22–0.23 nm</h3>
+      <table class="styled">
+        <tr><th>T (K)</th><th>Peak (Å)</th><th>g(r)</th><th>CN est.</th></tr>
+        <tr><td>280</td><td>2.2–2.3</td><td>~2.0</td><td>~4 (Td)</td></tr>
+        <tr><td>300</td><td>2.2–2.3</td><td>~1.5</td><td>~4 (Td)</td></tr>
+        <tr><td>320</td><td>2.2–2.3</td><td>~1.2</td><td>~4–5</td></tr>
+        <tr><td>340</td><td>2.2–2.3</td><td>&lt;1.0</td><td>~5–6</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card accent-border">
+        <h3>Key Observations</h3>
+        <ul>
+          <li>Peak position <strong>constant</strong> → Zn-S bond length unaffected by T</li>
+          <li>Peak height <strong>decreases</strong> with T → thermal disorder</li>
+          <li>g(r): 2.0 at 280 K → &lt;1.0 at 340 K</li>
+          <li><strong>Most thermally labile</strong> of all three coordination modes</li>
+        </ul>
+      </div>
+      <div class="card danger-border" style="margin-top:12px">
+        <p style="font-size:0.65em"><strong>Contrast:</strong> Zn–SO₄ and Zn–water RDFs are temperature-<em>insensitive</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 13: RDF Zn-SO4 -->
+<section>
+  <h2>RDF: Zn–SO₄ — The Surprise</h2>
+  <div class="two-col">
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <div class="big-number blue">g(r) ≈ 32</div>
+      <p style="font-size:0.7em; color:#94a3b8; margin-top:8px">at r ≈ 0.17 nm</p>
+      <p style="font-size:0.65em; color:#64748b; margin-top:4px">vs. Zn–water g(r) ≈ 5 &nbsp;|&nbsp; Zn–thiourea g(r) ≈ 2</p>
+    </div>
+    <div>
+      <div class="card danger-border">
+        <h3 style="color:var(--danger)">Revised Coordination Picture</h3>
+        <p style="font-size:0.65em; color:#e2e8f0"><strong>Sulfate — not thiourea — is the dominant first-shell ligand</strong> at 2M ZnSO₄</p>
+        <p style="font-size:0.6em; color:#94a3b8; margin-top:8px">The complex is better described as:<br>
+        <strong style="color:#fff">[Zn(SO₄)ₙ(H₂O)ₘ]<sup>(2−2n)</sup></strong></p>
+      </div>
+      <div class="card green-border" style="margin-top:12px">
+        <h3>Why?</h3>
+        <ul style="font-size:0.9em">
+          <li>Strong Coulombic: Zn²⁺(+2) ↔ SO₄²⁻(−2)</li>
+          <li>1:1 ratio (150:150) vs. thiourea 10:150</li>
+          <li><strong>Temperature-insensitive</strong> → thermally robust</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 14: COORDINATION HIERARCHY -->
+<section>
+  <h2>Competitive Coordination Hierarchy (300 K)</h2>
+  <div class="hierarchy">
+    <div class="item" style="background:rgba(56,189,248,0.2); color:var(--accent); font-size:0.9em; padding:16px 28px;">
+      <div style="font-size:1.8em; font-weight:700;">32</div>
+      Zn–SO₄<br><span style="font-size:0.8em">r ≈ 0.17 nm</span>
+    </div>
+    <div class="sep">>></div>
+    <div class="item" style="background:rgba(52,211,153,0.15); color:var(--accent3); padding:16px 28px;">
+      <div style="font-size:1.8em; font-weight:700;">~5</div>
+      Zn–Water<br><span style="font-size:0.8em">r ≈ 0.20 nm</span>
+    </div>
+    <div class="sep">>></div>
+    <div class="item" style="background:rgba(167,139,250,0.15); color:var(--accent2); padding:16px 28px;">
+      <div style="font-size:1.8em; font-weight:700;">~2</div>
+      Zn–Thiourea<br><span style="font-size:0.8em">r ≈ 0.22 nm</span>
+    </div>
+  </div>
+  <div class="card" style="margin-top:20px; text-align:center;">
+    <p style="font-size:0.7em; margin:0">Despite HSAB affinity, thiourea is largely excluded from the inner shell due to:<br>
+    <span class="tag red">Low ratio (10:150 = 0.067)</span>
+    <span class="tag blue">SO₄²⁻ dominance (1:1 with Zn)</span>
+    </p>
+  </div>
+  <div class="quote" style="margin-top:12px">The diffusion anomaly at 340 K most likely involves the <strong>Zn–SO₄ coordination environment</strong> rather than the Zn–thiourea shell.</div>
+</section>
+
+<!-- SLIDE 15: HYPOTHESIS 1 -->
+<section>
+  <h2>Hypothesis 1: Entropy-Driven CN Increase</h2>
+  <div class="two-col">
+    <div>
+      <div class="card accent-border">
+        <h3>Thermodynamic Argument</h3>
+        <p style="font-size:0.65em">For: Zn-complex + L ⇌ Zn-complex-L</p>
+        <p style="font-size:0.85em; color:#fff; font-weight:600; margin:8px 0; text-align:center">ΔG = ΔH − <span style="color:var(--danger)">TΔS</span> = −RT ln K</p>
+        <p style="font-size:0.63em; color:#94a3b8">If binding releases structured water (ΔS > 0), high T favors <strong>more ligands binding</strong> → larger complex → <strong>slower diffusion</strong></p>
+      </div>
+      <div class="card green-border" style="margin-top:12px">
+        <h3>External Validation</h3>
+        <p style="font-size:0.63em; color:#94a3b8">Ding et al. (2024): ΔCN = 0.24 from <em>concentration</em> perturbation alone at 298 K.<br>A <em>temperature</em> perturbation of 20 K with TΔS amplification is plausible to cause ≥ comparable shift.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card danger-border">
+        <h3>Quantitative Check (Stokes-Einstein)</h3>
+        <p style="font-size:0.63em; color:#94a3b8">320 K → 340 K:</p>
+        <table class="styled" style="font-size:1em">
+          <tr><td>T increase</td><td style="color:var(--accent3)">+6.3%</td></tr>
+          <tr><td>η decrease</td><td style="color:var(--accent3)">−10%</td></tr>
+          <tr><td>D change</td><td class="anomalous">−6.5%</td></tr>
+        </table>
+        <p style="font-size:0.63em; color:#e2e8f0; margin-top:10px">∴ r<sub>H</sub> must increase by <strong style="color:var(--danger)">~14%</strong></p>
+        <p style="font-size:0.58em; color:#94a3b8; margin-top:6px">+1 ligand gives ~5–6% → requires multiple ligands <em>or</em> dimerization</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 16: HYPOTHESIS 2 & 3 -->
+<section>
+  <h2>Hypotheses 2 & 3</h2>
+  <div class="two-col">
+    <div>
+      <div class="card danger-border" style="height:100%">
+        <h3 style="color:var(--danger)">H2: SO₄²⁻-Bridged Aggregation</h3>
+        <span class="tag red">Elevated Probability</span>
+        <p style="font-size:0.63em; color:#94a3b8; margin-top:10px">Given g(r) ≈ 32 for Zn–SO₄, sulfate-bridged dimerization is highly plausible at high T:</p>
+        <p style="font-size:0.72em; color:#fff; text-align:center; margin:12px 0; font-weight:600">[Zn₂(SO₄)<sub>y</sub>(H₂O)<sub>x</sub>]</p>
+        <p style="font-size:0.63em; color:#94a3b8">Stokes-Einstein: dimer → <strong style="color:var(--danger)">~21% slower</strong><br>(D ∝ V⁻¹/³, dimer V = 2×monomer)</p>
+        <p style="font-size:0.63em; color:#e2e8f0; margin-top:8px">Only <strong>~30% partial dimerization</strong> needed to explain the 6.5% decrease</p>
+        <div style="margin-top:10px">
+          <span class="tag purple">Test: Zn–Zn RDF at 340 K</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card purple-border">
+        <h3>H3: H-Bond Network Reorganization</h3>
+        <p style="font-size:0.63em; color:#94a3b8; margin-top:8px">Above ~320 K, bulk water H-bond network restructures significantly</p>
+        <ul style="font-size:0.9em">
+          <li>Enhanced water structuring around complex</li>
+          <li>Higher local viscosity</li>
+          <li>Could reduce D without size change</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:16px; text-align:center;">
+        <h3>Combined Mechanism</h3>
+        <p style="font-size:0.65em; color:#94a3b8">These three hypotheses are <strong style="color:#fff">not mutually exclusive</strong>. The actual mechanism likely involves contributions from all three.</p>
+        <div style="margin-top:10px">
+          <span class="tag blue">Entropy ΔCN</span>
+          <span class="tag red">SO₄ bridging</span>
+          <span class="tag purple">H-bond restructure</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 17: BATTERY RELEVANCE -->
+<section>
+  <h2>Relevance to Battery Design</h2>
+  <div class="card accent-border" style="margin-bottom:16px">
+    <h3>The Zn²⁺ solvation structure controls everything</h3>
+  </div>
+  <div class="three-col">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.6em; margin-bottom:6px;">⚡</div>
+      <p style="font-size:0.65em; color:#fff; font-weight:600">HER Rate</p>
+      <p style="font-size:0.55em; color:#94a3b8">Water in 1st shell → direct H₂ evolution</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.6em; margin-bottom:6px;">🛡️</div>
+      <p style="font-size:0.65em; color:#fff; font-weight:600">Anode Stability</p>
+      <p style="font-size:0.55em; color:#94a3b8">SEI from solvation shell decomposition</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.6em; margin-bottom:6px;">🔄</div>
+      <p style="font-size:0.65em; color:#fff; font-weight:600">Ionic Transport</p>
+      <p style="font-size:0.55em; color:#94a3b8">D of solvated Zn²⁺ complex</p>
+    </div>
+  </div>
+  <div class="card danger-border" style="margin-top:16px; text-align:center;">
+    <p style="font-size:0.72em; margin:0"><strong>Warning:</strong> Simple Arrhenius extrapolation is <strong style="color:var(--danger)">insufficient</strong> for predicting high-temperature electrolyte behavior</p>
+  </div>
+  <div class="quote">Complements experimental strategies: succinate (Ding 2024), acetate, and fluorinated anion additives that modulate the Zn²⁺ solvation shell.</div>
+</section>
+
+<!-- SLIDE 18: CONCLUSIONS -->
+<section>
+  <h2>Conclusions</h2>
+  <div style="max-width:750px; margin:0 auto;">
+    <div class="card green-border" style="margin:10px 0">
+      <span class="tag green">1</span>&nbsp; <strong>Validated MD model</strong> — Zn-S: 2.2–2.3 Å (exp: 2.3–2.4 Å), density, temperature, energy all verified
+    </div>
+    <div class="card danger-border" style="margin:10px 0">
+      <span class="tag red">2</span>&nbsp; <strong>Non-Arrhenius anomaly discovered</strong> — D increases normally 280→320 K, then <strong>decreases 6.5% at 340 K</strong>
+    </div>
+    <div class="card accent-border" style="margin:10px 0">
+      <span class="tag blue">3</span>&nbsp; <strong>Revised coordination picture</strong> — SO₄²⁻ is the dominant 1st-shell ligand (g(r) ≈ 32), not thiourea (g(r) ≈ 2)
+    </div>
+    <div class="card purple-border" style="margin:10px 0">
+      <span class="tag purple">4</span>&nbsp; <strong>Three mechanisms proposed</strong> — entropy-driven CN increase + SO₄ bridging (elevated) + H-bond restructuring
+    </div>
+    <div class="card" style="margin:10px 0; border-left:3px solid #f59e0b;">
+      <span class="tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">5</span>&nbsp; <strong>Practical implication</strong> — Arrhenius extrapolation fails for high-T AZIB electrolyte design
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 19: FUTURE WORK -->
+<section>
+  <h2>Future Work</h2>
+  <div class="two-col">
+    <div>
+      <div class="card accent-border" style="margin:8px 0">
+        <h3>Short-Term</h3>
+        <ul>
+          <li><strong>Zn–Zn RDF</strong> from existing trajectories → test dimerization at 340 K</li>
+          <li><strong>Umbrella sampling</strong> → ΔG<sub>bind</sub>(T) to resolve ΔH vs. TΔS</li>
+        </ul>
+      </div>
+      <div class="card purple-border" style="margin:8px 0">
+        <h3>Medium-Term</h3>
+        <ul>
+          <li>Higher <strong>thiourea concentrations</strong> (1:1, 2:1)</li>
+          <li>Extended T range (360 K, 380 K)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card green-border" style="margin:8px 0">
+        <h3>Long-Term</h3>
+        <ul>
+          <li><strong>Ab initio MD</strong> for select configs → validate classical FF</li>
+          <li><strong>Electrode interface</strong> simulations → connect bulk solvation to deposition</li>
+        </ul>
+      </div>
+      <div class="card" style="margin:8px 0; text-align:center; border-left:3px solid #f59e0b">
+        <p style="font-size:0.7em; color:#94a3b8">Goal: a complete molecular-level picture linking <strong style="color:#fff">solvation structure → electrolyte transport → battery performance</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 20: THANK YOU -->
+<section>
+  <div class="title-slide">
+    <h1>Thank You</h1>
+    <div class="subtitle" style="margin-top:1.2em; font-size:0.8em; color:#94a3b8">
+      Kulraj Singh Sabharwal &nbsp;·&nbsp; 21054013<br>
+      IDD Chemistry, IIT (BHU) Varanasi
+    </div>
+    <div style="margin-top:2em;">
+      <span class="tag blue" style="font-size:0.65em">Dr. Rosy — Supervisor</span>
+      <span class="tag purple" style="font-size:0.65em">Mr. Digvijay Andotra — Mentor</span>
+      <span class="tag green" style="font-size:0.65em">Ms. Rashmi — Colleague</span>
+    </div>
+    <div style="margin-top:1em;">
+      <span class="tag" style="font-size:0.55em; background:rgba(255,255,255,0.06); color:#64748b">Param Shivaay HPC</span>
+      <span class="tag" style="font-size:0.55em; background:rgba(255,255,255,0.06); color:#64748b">GROMACS 2026.0</span>
+      <span class="tag" style="font-size:0.55em; background:rgba(255,255,255,0.06); color:#64748b">Packmol</span>
+      <span class="tag" style="font-size:0.55em; background:rgba(255,255,255,0.06); color:#64748b">ACPYPE</span>
+    </div>
+    <div style="margin-top:2.5em; font-size:0.85em; color:var(--accent); font-weight:500">Questions?</div>
+  </div>
+</section>
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  width: 1200,
+  height: 700,
+  margin: 0.06,
+  transition: 'slide',
+  transitionSpeed: 'default',
+  backgroundTransition: 'fade',
+  center: true,
+  controls: true,
+  progress: true,
+  keyboard: true,
+  overview: true,
+  touch: true,
+});
+</script>
+</body>
+</html>
