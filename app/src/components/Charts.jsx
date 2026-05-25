@@ -375,9 +375,9 @@ export function MSDCurvesChart() {
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data} margin={M}>
         <CartesianGrid strokeDasharray="3 3" stroke="#ddd" vertical={false} />
-        <XAxis dataKey="t" tick={fs}
+        <XAxis dataKey="t" type="number" domain={[0, 60]} tick={fs}
           label={{ value: "Time (ns)", position: "insideBottom", offset: -2, style: { ...fs, fill: MUTED } }} />
-        <YAxis tick={fs} label={{ value: "MSD (nm²)", angle: -90, position: "insideLeft", style: { ...fs, fill: MUTED } }} />
+        <YAxis domain={[0, 'auto']} tick={fs} label={{ value: "MSD (nm²)", angle: -90, position: "insideLeft", style: { ...fs, fill: MUTED } }} />
         <Tooltip contentStyle={ttStyle} formatter={(v) => v.toFixed(3)} />
         <Legend wrapperStyle={{ ...fs, paddingTop: 0 }} />
         <Line dataKey="280 K" stroke={DARK_BLUE} strokeWidth={1.8} dot={false} />

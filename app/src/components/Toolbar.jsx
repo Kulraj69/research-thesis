@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 import PptxGenJS from "pptxgenjs";
 import { slides } from "../slides";
 
-export function Toolbar({ current, total, onPrev, onNext, slideRef }) {
+export function Toolbar({ current, total, onPrev, onNext, slideRef, onPresent }) {
   const downloadPDF = async () => {
     const el = slideRef.current;
     if (!el) return;
@@ -88,6 +88,9 @@ export function Toolbar({ current, total, onPrev, onNext, slideRef }) {
         </button>
       </div>
       <div className="toolbar-downloads">
+        <button className="dl-btn present" onClick={onPresent}>
+          ▶ Present
+        </button>
         <button className="dl-btn pdf" onClick={downloadPDF}>
           ↓ PDF
         </button>

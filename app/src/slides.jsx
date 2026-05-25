@@ -48,6 +48,32 @@ export const slides = [
         ],
       },
       {
+        kind: "columns",
+        compact: true,
+        cols: [
+          {
+            title: "Tools & Methods",
+            color: "blue",
+            items: [
+              "GROMACS 2023.3 — all-atom MD",
+              "OPLS-AA force field + TIP4P water",
+              "Berendsen thermostat / barostat",
+              "10 ns production trajectory",
+            ],
+          },
+          {
+            title: "Key Outputs",
+            color: "olive",
+            items: [
+              "Radial distribution functions (RDF)",
+              "Mean square displacement (MSD)",
+              "Coordination number analysis",
+              "Solvation shell composition at 300 K",
+            ],
+          },
+        ],
+      },
+      {
         kind: "callout",
         text: "Central question: What is the solvation structure around Zn²⁺ in thiourea-containing electrolyte, and which ligand dominates the first coordination shell?",
       },
@@ -104,11 +130,9 @@ export const slides = [
           { title: "🔱 Dendrite Growth", color: "blue", items: [
             "Non-uniform Zn²⁺ deposition",
             "Sharp protrusions → separator puncture",
-            "Short circuits → thermal runaway risk",
-            "Worse with uncontrolled solvation shell",
           ]},
           { title: "🛡️ Passivation", color: "olive", items: [
-            "ZnO / Zn(OH)₂ films on anode surface",
+            "ZnO, Zn(OH)₂, and basic zinc hydroxide sulfates form on anode",
             "Block further Zn²⁺ deposition",
             "Increase cell impedance over cycles",
             "Reduce coulombic efficiency",
@@ -177,8 +201,8 @@ export const slides = [
         cols: [
           { title: "What We Know", color: "lime", items: [
             "Additives improve cycling at room temperature",
-            "Thiourea forms a protective SEI on Zn anode",
-            "Electrochemical performance well characterized",
+            "Thiourea forms a protective SEI (Solid Electrolyte Interphase) on Zn anode",
+            "Electrochemical performance (coulombic efficiency, cycle life, capacity retention) well characterized",
             "Solvation shell snapshots available at 300 K",
           ]},
           { title: "What We Aim to Study", color: "amber", items: [
@@ -213,7 +237,7 @@ export const slides = [
           kind: "numbered",
           items: [
             "Build & validate an MD model of 2M ZnSO₄ + thiourea in water (14,696 atoms, ~5 nm box)",
-            "Simulate at 280, 300, 320, 340 K — 10 ns production each (40 ns total)",
+            "Simulate at 280, 300, 320, 340 K — 10 ns production trajectory each",
             "Characterize structure via RDF: Zn–S, Zn–O(SO₄), Zn–O(H₂O)",
             "Quantify dynamics via MSD → diffusion coefficients D(T)",
             "Explain diffusion anomaly via mechanistic hypotheses",
@@ -223,8 +247,8 @@ export const slides = [
           kind: "table",
           headers: ["Parameter", "Value"],
           rows: [
-            ["Total sim. time", "4 × 10 ns = 40 ns"],
-            ["Frames collected", "4 × 10,000 = 40,000"],
+            ["Sim. time (per T)", "10 ns production"],
+            ["Frames collected", "10,000 per run"],
             ["Atoms per system", "14,696"],
             ["Box size (initial)", "5.0³ nm³"],
             ["Concentration", "~2 M ZnSO₄"],
@@ -289,16 +313,20 @@ export const slides = [
         kind: "split",
         left: {
           kind: "table",
-          headers: ["Species", "Count", "Atoms", "Charge", "Role"],
+          headers: ["Species", "Count", "Atoms"],
           rows: [
-            ["Zn²⁺", "150", "150", "+300e", "Central ion"],
-            ["SO₄²⁻", "150", "750", "−300e", "Counter-ion / 1st shell"],
-            ["Thiourea", "10", "80", "0", "S-donor additive"],
-            ["TIP4P H₂O", "3,429", "13,716", "0", "Bulk solvent"],
-            ["TOTAL", "—", "14,696", "0", "Electroneutral"],
+            ["Zn²⁺", "150", "150"],
+            ["SO₄²⁻", "150", "750"],
+            ["Thiourea", "10", "80"],
+            ["TIP4P H₂O", "3,429", "13,716"],
+            ["TOTAL", "—", "14,696"],
           ],
         },
-        right: { kind: "chart", chartType: "systemPie" },
+        right: {
+          kind: "mol3d",
+          src: "/md_visualization.pdb",
+          caption: "Interactive 3D View — 14,696 atoms",
+        },
       },
       {
         kind: "callout",
@@ -321,8 +349,8 @@ export const slides = [
           { label: "Minimize", detail: "Steepest descent\nFmax < 1000" },
           { label: "NVT 500 ps", detail: "V-rescale\nT → 298 K" },
           { label: "NPT 3 ns", detail: "Berendsen\nρ → 1390 kg/m³" },
-          { label: "Production", detail: "10 ns NPT\n10k frames" },
-          { label: "Analysis", detail: "RDF, MSD\nEnergy, CN" },
+          { label: "Production", detail: "10 ns NPT\n10,000 frames" },
+          { label: "Analysis", detail: "RDF, MSD\nEnergy" },
         ],
       },
       {
@@ -332,8 +360,7 @@ export const slides = [
           ["Minimization", "~5,000 steps", "Fmax < 1000 kJ/mol/nm"],
           ["NVT equil.", "500 ps", "T = 299.86 ± 3.13 K"],
           ["NPT equil.", "3 ns", "ρ = 1389.7 ± 4.5 kg/m³"],
-          ["Production", "10 ns × 4", "10k frames each"],
-          ["Total MD time", "40 ns", "40 ns production"],
+          ["Production", "10 ns", "10,000 frames"],
         ],
       },
     ],
@@ -342,33 +369,6 @@ export const slides = [
   // ──────────────────────────────────────────
   // 11 — FORCEFIELD & PARAMETERS
   // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Force Field & Simulation Parameters",
-    content: [
-      {
-        kind: "table",
-        headers: ["Parameter", "Value", "Reference / Note"],
-        rows: [
-          ["MD Engine", "GROMACS 2026.0", "Leapfrog integrator, dt = 2 fs"],
-          ["Force Field", "AMBER99SB + GAFF", "ACPYPE for SO₄²⁻, thiourea topologies"],
-          ["Water Model", "TIP4P (4-site)", "Jorgensen 1983 — ρ ≈ 1.00 g/cm³ at 300 K"],
-          ["Electrostatics", "PME", "rc = 1.0 nm, Fourier = 0.12 nm, 4th order"],
-          ["Thermostat", "V-rescale (τ = 0.1 ps)", "Bussi 2007 — canonical NVT sampling"],
-          ["Barostat", "Berendsen (τ = 3 ps)", "κ = 4.5×10⁻⁵ bar⁻¹, P = 1 bar"],
-          ["Constraints", "LINCS + SETTLE", "H-bonds constrained → 2 fs timestep"],
-          ["LJ combining", "Lorentz-Berthelot", "σij = (σi+σj)/2, εij = √(εi·εj)"],
-          ["Zn²⁺", "q = +2.000e, m = 65.38", "AMBER99SB standard ion parameters"],
-          ["Charges", "AM1-BCC", "For thiourea, GAFF atom types"],
-        ],
-      },
-      {
-        kind: "callout",
-        text: "TIP4P chosen over SPC/E for better structural properties at varied temperatures. GAFF parameters for thiourea generated via ACPYPE with AM1-BCC partial charges.",
-      },
-    ],
-  },
-
   // ──────────────────────────────────────────
   // 13 — VALIDATION TABLE
   // ──────────────────────────────────────────
@@ -422,18 +422,77 @@ export const slides = [
   // ──────────────────────────────────────────
   {
     type: "body",
-    heading: "Equilibration Checklist — All Criteria Passed",
+    heading: "Equilibration Checklist — 300 K ZnSO₄ + Thiourea",
     content: [
       {
-        kind: "image",
-        src: "/images/equilibration-checklist-300.png",
-        alt: "Equilibration checklist: 5/5 criteria passed for 300 K system",
+        kind: "checklist",
+        items: [
+          {
+            label: "Energy Minimization",
+            value: "Epot converged to −600,328 kJ/mol",
+            detail: "1,249 steps  |  Start: −147,576 → Final: −600,328 kJ/mol  |  ΔE = −747,504 kJ/mol",
+            criterion: "Plateau reached, no further decrease",
+            pass: true,
+          },
+          {
+            label: "NVT Temperature",
+            value: "Mean = 299.86 ± 3.13 K  (target: 300 K)",
+            detail: "500 ps  |  Range: 291.3 – 316.2 K  |  Deviation < 1%",
+            criterion: "Mean within ±5 K of target, σ < 5 K",
+            pass: true,
+          },
+          {
+            label: "NPT Density",
+            value: "Mean = 1,389.7 ± 4.5 kg/m³",
+            detail: "3,000 ps (equil. after 200 ps)  |  Stable plateau, σ/μ = 0.32%",
+            criterion: "Flat plateau, σ/μ < 2%",
+            pass: true,
+          },
+          {
+            label: "NPT Pressure",
+            value: "Mean ≈ −0.2 ± 356 bar  (target: 1 bar)",
+            detail: "3,000 ps  |  Large fluctuations normal for small systems  |  Mean ≈ 0",
+            criterion: "Mean oscillates around target, no drift",
+            pass: true,
+          },
+          {
+            label: "Zn²⁺ Diffusion (MSD)",
+            value: "D ≈ 0.8 × 10⁻⁹ m²/s  (linear MSD regime)",
+            detail: "10 ns trajectory  |  Linear fit on 20-80% of data  |  Ballistic → diffusive transition clear",
+            criterion: "MSD linear at long times, no plateau / anomaly",
+            pass: true,
+          },
+        ],
       },
     ],
   },
 
   // ──────────────────────────────────────────
-  // 16 — RDF CONCEPT
+  // — INDIVIDUAL CONVERGENCE PLOTS
+  // ──────────────────────────────────────────
+  {
+    type: "body",
+    heading: "Convergence Details — Energy, Temperature & Density",
+    content: [
+      {
+        kind: "dualImage",
+        images: [
+          { src: "/images/emin-300.png", caption: "Energy Minimization → −600,328 kJ/mol" },
+          { src: "/images/nvt-temp-300.png", caption: "NVT Temperature: 299.86 ± 3.13 K" },
+        ],
+      },
+      {
+        kind: "dualImage",
+        images: [
+          { src: "/images/density-npt-300.png", caption: "NPT Density: 1389.7 ± 4.5 kg/m³" },
+          { src: "/images/pressure-npt-300.png", caption: "NPT Pressure: mean = −3.8 bar, σ = 356 bar (t = 3 ns)" },
+        ],
+      },
+    ],
+  },
+
+  // ──────────────────────────────────────────
+  // — RDF CONCEPT
   // ──────────────────────────────────────────
   {
     type: "body",
@@ -499,6 +558,25 @@ export const slides = [
             "All RDFs → g(r) = 1 at large r, confirming proper sampling",
           ],
         },
+      },
+    ],
+  },
+
+  // ──────────────────────────────────────────
+  // — FIRST COORDINATION SHELL (zoomed panels)
+  // ──────────────────────────────────────────
+  {
+    type: "body",
+    heading: "First Coordination Shell — Zoomed View (0–0.5 nm)",
+    content: [
+      {
+        kind: "image",
+        src: "/images/rdf-first-shell-300.png",
+        alt: "First coordination shell panels for all three ligand pairs at 300 K",
+      },
+      {
+        kind: "callout",
+        text: "Zoomed into the first coordination shell (0–0.5 nm) for all three pairs. Peak positions and heights clearly annotated — SO₄²⁻ peak is off-scale at g(r) = 30.1.",
       },
     ],
   },
@@ -574,35 +652,104 @@ export const slides = [
   },
 
   // ──────────────────────────────────────────
-  // 19 — MSD ANALYSIS
+  // — RDF TEMPERATURE COMPARISON (multi-T data)
   // ──────────────────────────────────────────
   {
     type: "body",
-    heading: "Mean Square Displacement — MSD Analysis at 300 K",
+    heading: "RDF Temperature Comparison — Water & Ligand",
+    content: [
+      {
+        kind: "dualImage",
+        images: [
+          { src: "/images/rdf-zn-water-temps.png", caption: "RDF: Zn–Water (280–340 K)" },
+          { src: "/images/rdf-zn-ligand-temps.png", caption: "RDF: Zn–Ligand (280–340 K)" },
+        ],
+      },
+      {
+        kind: "callout",
+        text: "Zn–Water RDF: peak at r ≈ 0.2 nm stable across all temperatures (g(r) ≈ 4.7). Zn–Ligand: 280 K shows highest peak (g(r) ≈ 2.0), peaks decrease with temperature — thermal disruption of coordination.",
+      },
+    ],
+  },
+
+  // ──────────────────────────────────────────
+  // — RDF: SO4 & FIRST SHELL PEAK (multi-T data)
+  // ──────────────────────────────────────────
+  {
+    type: "body",
+    heading: "RDF: Sulphate & First Shell Peak — Temperature Dependence",
+    content: [
+      {
+        kind: "dualImage",
+        images: [
+          { src: "/images/rdf-zn-so4-temps.png", caption: "RDF: Zn–SO₄ (280–340 K)" },
+          { src: "/images/rdf-coordination-shell-temps.png", caption: "First Coordination Shell Peak Variation" },
+        ],
+      },
+      {
+        kind: "table",
+        headers: ["Temp (K)", "Ligand Peak g(r)", "SO₄ Peak g(r)", "Coordination Trend"],
+        rows: [
+          ["280", "2.0", "32", "Strongest coordination — low thermal energy"],
+          ["300", "0.9", "32", "Standard reference — solvation shell stable"],
+          ["320", "0.7", "31", "Moderate disruption — thermal broadening"],
+          ["340", "0.9", "31", "Partial recovery — complex restructuring"],
+        ],
+      },
+      {
+        kind: "callout",
+        text: "280 K shows strongest Zn–Ligand coordination (g(r) ≈ 2.0 vs ≈ 0.9 at higher T). SO₄ dominance is stable across all temperatures. First shell peak variation confirms temperature-dependent solvation shell restructuring.",
+      },
+    ],
+  },
+
+  // ──────────────────────────────────────────
+  // — MSD ANALYSIS (graph + data)
+  // ──────────────────────────────────────────
+  {
+    type: "body",
+    heading: "Mean Square Displacement — MSD Analysis",
     content: [
       {
         kind: "split",
         left: {
           kind: "image",
-          src: "/images/msd-zn-300.png",
-          alt: "MSD of Zn²⁺ at 300 K — 10 ns trajectory",
+          src: "/images/msd-graph-user.png",
+          alt: "MSD of Zn²⁺ at 280, 300, 320, 340 K",
         },
         right: {
-          kind: "bullets",
-          title: "MSD → Diffusion Coefficient",
-          items: [
-            "MSD(t) = ⟨|r(t) − r(0)|²⟩ averaged over all Zn²⁺",
-            "Linear regime (Fickian diffusion): MSD = 6Dt",
-            "MSD at 10 ns = 0.644 nm²",
-            "Computed via gmx msd over 10 ns trajectory",
-            "150 Zn²⁺ ions averaged",
-            "Clear ballistic → diffusive transition",
+          kind: "table",
+          headers: ["Temp (K)", "MSD (nm²)", "D (×10⁻⁵ cm²/s)", "D Change"],
+          rows: [
+            ["280", "0.567", "0.0083", "Baseline"],
+            ["300", "0.761", "0.0113", "+36.95%"],
+            ["320", "0.986", "0.0138", "+67.25%"],
+            ["340", "1.087", "0.0129", "+56.34%"],
           ],
         },
       },
       {
-        kind: "equation",
-        tex: "D = lim(t→∞) MSD(t) / 6t    [Einstein relation, 3D]",
+        kind: "callout",
+        text: "D = lim(t→∞) MSD(t) / 6t  [Einstein, 3D] · Computed via gmx msd · 340 K shows anomalous drop (−6.5%) despite highest MSD — suggests solvation shell restructuring",
+      },
+    ],
+  },
+
+  // ──────────────────────────────────────────
+  // — MSD + DIFFUSION HISTOGRAM
+  // ──────────────────────────────────────────
+  {
+    type: "body",
+    heading: "MSD & Diffusion — Temperature Dependence",
+    content: [
+      {
+        kind: "image",
+        src: "/images/msd-d-side-by-side.png",
+        alt: "Final MSD and diffusion coefficient bar charts at all temperatures",
+      },
+      {
+        kind: "callout",
+        text: "MSD increases monotonically with temperature (+91.8% at 340 K). Diffusion coefficient peaks at 320 K (+67.25%) but drops at 340 K (+56.34% vs baseline) — suggesting solvation shell restructuring at higher T.",
       },
     ],
   },

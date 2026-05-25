@@ -44,14 +44,30 @@ export function TitleSlide({ data }) {
   );
 }
 
+function countItems(blocks) {
+  let n = 0;
+  for (const b of blocks) {
+    if (b.kind === "bullets" || b.kind === "numbered") n += (b.items?.length || 0);
+    else if (b.kind === "table") n += (b.rows?.length || 0) + 1;
+    else if (b.kind === "columns") {
+      for (const c of b.cols || []) n += (c.items?.length || 0);
+    } else if (b.kind === "split") {
+      n += countItems([b.left, b.right].filter(Boolean));
+    } else n += 1;
+  }
+  return n;
+}
+
 export function BodySlide({ data }) {
   const blocks = data.content;
   const hasGrowable = blocks.some(
-    (b) => b.kind === "split" || b.kind === "chart" || b.kind === "columns" || b.kind === "tripleChart" || b.kind === "image" || b.kind === "dualImage"
+    (b) => b.kind === "split" || b.kind === "chart" || b.kind === "columns" || b.kind === "tripleChart" || b.kind === "image" || b.kind === "dualImage" || b.kind === "mol3d" || b.kind === "checklist"
   );
+  const items = countItems(blocks);
+  const density = items <= 4 ? "sparse" : items <= 8 ? "medium" : "";
 
   return (
-    <div className="slide-content body-layout">
+    <div className={`slide-content body-layout ${density}`}>
       <h2 className="slide-heading">{data.heading}</h2>
       <div className="slide-body" style={!hasGrowable ? { justifyContent: "space-evenly" } : undefined}>
         {blocks.map((block, i) => (
@@ -73,7 +89,7 @@ export function ThankYouSlide({ data }) {
       </div>
       <div className="thankyou-people">
         {data.people.map((p, i) => (
-          <div key={i} className="person-tag">
+          <div key={i} className="person-tag" style={{ "--i": i }}>
             <span className="person-role">{p.role}</span>
             <span className="person-name">{p.name}</span>
           </div>
