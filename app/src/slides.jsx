@@ -181,7 +181,7 @@ export const slides = [
             "Electrochemical performance well characterized",
             "Solvation shell snapshots available at 300 K",
           ]},
-          { title: "What We Don't Know", color: "amber", items: [
+          { title: "What We Aim to Study", color: "amber", items: [
             "How does the coordination shell change with temperature?",
             "Does diffusion scale normally with heating?",
             "Which ligand binds most strongly at high T?",
@@ -195,7 +195,7 @@ export const slides = [
       },
       {
         kind: "callout",
-        text: "No prior study has systematically tracked how Zn²⁺ solvation structure and dynamics change across a temperature range relevant to real battery operating conditions (280–340 K).",
+        text: "This study systematically tracks how Zn²⁺ solvation structure and dynamics evolve across a temperature range relevant to real battery operating conditions (280–340 K).",
       },
     ],
   },
@@ -320,25 +320,21 @@ export const slides = [
           { label: "Packmol", detail: "Random placement\nin 5 nm³ box" },
           { label: "Minimize", detail: "Steepest descent\nFmax < 1000" },
           { label: "NVT 500 ps", detail: "V-rescale\nT → 298 K" },
-          { label: "NPT 500 ps", detail: "P-Rahman\nρ → 1394 kg/m³" },
+          { label: "NPT 500 ps", detail: "Berendsen\nρ → 1394 kg/m³" },
           { label: "Production", detail: "100 ns NPT\n100k frames" },
           { label: "Analysis", detail: "RDF, MSD\nEnergy, CN" },
         ],
       },
       {
-        kind: "split",
-        left: { kind: "chart", chartType: "densityConv" },
-        right: {
-          kind: "table",
-          headers: ["Stage", "Duration", "Key Metric"],
-          rows: [
-            ["Minimization", "~5,000 steps", "Fmax < 1000 kJ/mol/nm"],
-            ["NVT equil.", "500 ps", "T = 298.111 ± 3 K"],
-            ["NPT equil.", "500 ps", "ρ = 1393.7 ± 5 kg/m³"],
-            ["Production", "100 ns × 4", "100k frames each"],
-            ["Total MD time", "402 ns", "400 ns production"],
-          ],
-        },
+        kind: "table",
+        headers: ["Stage", "Duration", "Key Metric"],
+        rows: [
+          ["Minimization", "~5,000 steps", "Fmax < 1000 kJ/mol/nm"],
+          ["NVT equil.", "500 ps", "T = 298.111 ± 3 K"],
+          ["NPT equil.", "500 ps", "ρ = 1393.7 ± 5 kg/m³"],
+          ["Production", "100 ns × 4", "100k frames each"],
+          ["Total MD time", "402 ns", "400 ns production"],
+        ],
       },
     ],
   },
@@ -359,7 +355,7 @@ export const slides = [
           ["Water Model", "TIP4P (4-site)", "Jorgensen 1983 — ρ ≈ 1.00 g/cm³ at 300 K"],
           ["Electrostatics", "PME", "rc = 1.0 nm, Fourier = 0.12 nm, 4th order"],
           ["Thermostat", "V-rescale (τ = 0.1 ps)", "Bussi 2007 — canonical NVT sampling"],
-          ["Barostat", "Parrinello-Rahman (τ = 2 ps)", "κ = 4.5×10⁻⁵ bar⁻¹, P = 1 bar"],
+          ["Barostat", "Berendsen (τ = 3 ps)", "κ = 4.5×10⁻⁵ bar⁻¹, P = 1 bar"],
           ["Constraints", "LINCS + SETTLE", "H-bonds constrained → 2 fs timestep"],
           ["LJ combining", "Lorentz-Berthelot", "σij = (σi+σj)/2, εij = √(εi·εj)"],
           ["Zn²⁺", "q = +2.000e, m = 65.38", "AMBER99SB standard ion parameters"],
@@ -369,50 +365,6 @@ export const slides = [
       {
         kind: "callout",
         text: "TIP4P chosen over SPC/E for better structural properties at varied temperatures. GAFF parameters for thiourea generated via ACPYPE with AM1-BCC partial charges.",
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
-  // 12 — HPC SETUP
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Computational Resources — Param Shivaay",
-    content: [
-      {
-        kind: "split",
-        left: {
-          kind: "table",
-          headers: ["Resource", "Specification"],
-          rows: [
-            ["HPC Cluster", "Param Shivaay, IIT BHU"],
-            ["CPU Architecture", "Intel Xeon (AVX-512)"],
-            ["MPI Ranks", "40 per job"],
-            ["Performance", "292 ns/day (production)"],
-            ["Frames per run", "100,000 (1 ps interval)"],
-            ["Storage per run", "~45 GB trajectory"],
-            ["Total walltime", "~5.5 days for 4 runs"],
-            ["Total data", "~180 GB trajectories"],
-          ],
-        },
-        right: {
-          kind: "columns",
-          cols: [
-            { title: "Performance", color: "lime", items: [
-              "292 ns/day throughput",
-              "100 ns in ~8.2 hours",
-              "400 ns total production",
-              "50M steps per temperature",
-            ]},
-            { title: "Data Generated", color: "blue", items: [
-              "400,000 trajectory frames",
-              "~180 GB raw data",
-              "RDF: 4 × 3 pairs = 12 curves",
-              "MSD: 4 temperature curves",
-            ]},
-          ],
-        },
       },
     ],
   },
@@ -516,7 +468,7 @@ export const slides = [
   },
 
   // ──────────────────────────────────────────
-  // 16 — RDF FROM GROMACS (300 K data)
+  // 16 — RDF FROM GROMACS (300 K — Water, Thiourea, Sulphate)
   // ──────────────────────────────────────────
   {
     type: "body",
@@ -525,7 +477,7 @@ export const slides = [
       {
         kind: "dualImage",
         images: [
-          { src: "/images/rdf-zn-water-300.png", caption: "Zn²⁺–Water (O): 1st shell peak annotated" },
+          { src: "/images/rdf-zn-water-300.png", caption: "Zn²⁺–Water (O): 1st shell peak" },
           { src: "/images/rdf-zn-thiourea-300.png", caption: "Zn²⁺–Thiourea: coordination peak" },
         ],
       },
@@ -534,7 +486,7 @@ export const slides = [
         left: {
           kind: "image",
           src: "/images/rdf-zn-so4-300.png",
-          alt: "Zn²⁺–SO₄²⁻ RDF at 300 K",
+          alt: "Zn²⁺–Sulphate RDF at 300 K",
         },
         right: {
           kind: "bullets",
@@ -542,9 +494,9 @@ export const slides = [
           items: [
             "Zn²⁺–Water: strong 1st shell peak — dominant solvation",
             "Zn²⁺–Thiourea: weaker peak — outer-shell coordination",
-            "Zn²⁺–SO₄²⁻: very strong ion pairing (highest g(r) peak)",
+            "Zn²⁺–Sulphate: massive g(r) ≈ 32 — dominant first-shell ligand",
+            "Sulphate binding driven by Coulombic attraction (+2/−2)",
             "All RDFs → g(r) = 1 at large r, confirming proper sampling",
-            "Peak positions consistent with known ionic radii",
           ],
         },
       },
@@ -552,31 +504,35 @@ export const slides = [
   },
 
   // ──────────────────────────────────────────
-  // 17 — Zn–SO₄ RDF
+  // 17 — OVERALL RDF COMPARISON
   // ──────────────────────────────────────────
   {
     type: "body",
-    heading: "RDF: Zn²⁺ – SO₄²⁻ (Dominant Interaction)",
+    heading: "Overall RDF Comparison — All Three Ligands at 300 K",
     content: [
       {
         kind: "split",
-        left: { kind: "chart", chartType: "znSO4RDF" },
+        left: {
+          kind: "image",
+          src: "/images/rdf-overlay-300.png",
+          alt: "RDF overlay: Water, Thiourea, Sulphate at 300 K",
+        },
         right: {
           kind: "bullets",
-          title: "Observations",
+          title: "Coordination Hierarchy",
           items: [
-            "Massive first peak: g(r) ≈ 32 at r = 0.17 nm",
-            "16× stronger than water, 16× stronger than thiourea",
-            "Driven by Coulombic attraction: Zn²⁺(+2) ↔ SO₄²⁻(−2)",
-            "Second shell peak at r ≈ 0.36 nm, g(r) ≈ 3.5",
-            "Nearly temperature-insensitive (robust binding)",
-            "This is the dominant first-shell ligand — not thiourea",
+            "Sulphate dominates: g(r) ≈ 30 at r = 0.176 nm",
+            "Water: g(r) ≈ 4.7 at r = 0.206 nm (2nd strongest)",
+            "Thiourea: g(r) ≈ 1.6 at r = 0.228 nm (weakest)",
+            "Sulphate 1st shell: closest to Zn²⁺ (smallest r)",
+            "Clear separation of coordination shells for all three",
+            "Thiourea is an outer-shell additive, not inner-shell",
           ],
         },
       },
       {
         kind: "callout",
-        text: "Sulfate dominance was unexpected — thiourea was hypothesized to be the primary Zn²⁺ ligand. Instead, SO₄²⁻ controls the first coordination shell due to pure electrostatic strength.",
+        text: "Sulphate controls the first coordination shell due to pure electrostatic strength — thiourea acts as an outer-shell modifier rather than a direct Zn²⁺ coordinator.",
       },
     ],
   },
