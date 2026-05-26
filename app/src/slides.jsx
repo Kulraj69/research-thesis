@@ -119,25 +119,34 @@ export const slides = [
     heading: "Core Problems at the Zn Anode",
     content: [
       {
-        kind: "columns",
-        cols: [
-          { title: "⚡ Hydrogen Evolution (HER)", color: "amber", items: [
-            "Water reduction: 2H₂O + 2e⁻ → H₂ + 2OH⁻",
-            "Consumes electrolyte, raises local pH",
-            "Forms insulating ZnO passivation layer",
-            "Accelerated at high temperature",
-          ]},
-          { title: "🔱 Dendrite Growth", color: "blue", items: [
-            "Non-uniform Zn²⁺ deposition",
-            "Sharp protrusions → separator puncture",
-          ]},
-          { title: "🛡️ Passivation", color: "olive", items: [
-            "ZnO, Zn(OH)₂, and basic zinc hydroxide sulfates form on anode",
-            "Block further Zn²⁺ deposition",
-            "Increase cell impedance over cycles",
-            "Reduce coulombic efficiency",
-          ]},
-        ],
+        kind: "split",
+        left: {
+          kind: "columns",
+          compact: true,
+          cols: [
+            { title: "⚡ Hydrogen Evolution (HER)", color: "amber", items: [
+              "Water reduction: 2H₂O + 2e⁻ → H₂ + 2OH⁻",
+              "Consumes electrolyte, raises local pH",
+              "Forms insulating ZnO passivation layer",
+              "Accelerated at high temperature",
+            ]},
+            { title: "🔱 Dendrite Growth", color: "blue", items: [
+              "Non-uniform Zn²⁺ deposition",
+              "Sharp protrusions → separator puncture",
+            ]},
+            { title: "🛡️ Passivation", color: "olive", items: [
+              "ZnO, Zn(OH)₂, and basic zinc hydroxide sulfates form on anode",
+              "Block further Zn²⁺ deposition",
+              "Increase cell impedance over cycles",
+              "Reduce coulombic efficiency",
+            ]},
+          ],
+        },
+        right: {
+          kind: "image",
+          src: "/images/dendrite-real.jpg",
+          alt: "Real photograph of metallic dendrite growth — lead trees from displacement reaction (analogous to Zn dendrites)",
+        },
       },
       {
         kind: "callout",
@@ -170,15 +179,10 @@ export const slides = [
           ],
         },
         right: {
-          kind: "bullets",
-          title: "Molecular Structure",
-          items: [
-            "Formula: SC(NH₂)₂",
-            "Functional group: C=S (thione)",
-            "S-donor site coordinates with Zn²⁺",
-            "Two –NH₂ groups (H-bonding capable)",
-            "Planar geometry — π-conjugation",
-            "Melting point: 182 °C",
+          kind: "dualImage",
+          images: [
+            { src: "/images/thiourea-structure.png", caption: "2D structure: C=S thione group (S-donor site)" },
+            { src: "/images/thiourea-3d.png", caption: "3D ball-and-stick model (public domain)" },
           ],
         },
       },
