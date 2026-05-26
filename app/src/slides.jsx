@@ -602,23 +602,13 @@ export const slides = [
     heading: "RDF Results Summary — 300 K",
     content: [
       {
-        kind: "split",
-        left: {
-          kind: "table",
-          headers: ["Pair", "Peak r (nm)", "Peak g(r)", "Interpretation"],
-          rows: [
-            ["Zn²⁺–SO₄²⁻", "0.176", "30.1", "Dominant — strong ion pairing"],
-            ["Zn²⁺–Water (O)", "0.206", "4.725", "Stable solvation backbone"],
-            ["Zn²⁺–Thiourea", "0.228", "1.649", "Weak — outer-shell only"],
-          ],
-        },
-        right: {
-          kind: "dualImage",
-          images: [
-            { src: "/images/so4-ion-3d.png", caption: "SO₄²⁻ — dominant 1st shell ligand" },
-            { src: "/images/water-3d.png", caption: "H₂O — stable 2nd shell" },
-          ],
-        },
+        kind: "table",
+        headers: ["Pair", "Peak r (nm)", "Peak g(r)", "Interpretation"],
+        rows: [
+          ["Zn²⁺–SO₄²⁻", "0.176", "30.1", "Dominant — strong ion pairing"],
+          ["Zn²⁺–Water (O)", "0.206", "4.725", "Stable solvation backbone"],
+          ["Zn²⁺–Thiourea", "0.228", "1.649", "Weak — outer-shell only"],
+        ],
       },
       {
         kind: "columns",

@@ -61,7 +61,15 @@ function countItems(blocks) {
 export function BodySlide({ data }) {
   const blocks = data.content;
   const hasGrowable = blocks.some(
-    (b) => b.kind === "split" || b.kind === "chart" || b.kind === "columns" || b.kind === "tripleChart" || b.kind === "image" || b.kind === "dualImage" || b.kind === "mol3d" || b.kind === "checklist"
+    (b) =>
+      b.kind === "split" ||
+      b.kind === "chart" ||
+      (b.kind === "columns" && !b.compact) ||
+      b.kind === "tripleChart" ||
+      b.kind === "image" ||
+      b.kind === "dualImage" ||
+      b.kind === "mol3d" ||
+      b.kind === "checklist"
   );
   const items = countItems(blocks);
   const density = items <= 4 ? "sparse" : items <= 8 ? "medium" : "";
