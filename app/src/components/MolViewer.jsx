@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import $3Dmol from "3dmol";
 
 const LEGEND = [
-  { color: "#00d4ff", label: "Zn²⁺ ion", sub: "cyan · large sphere", size: 16, halo: true },
-  { color: "#c8b200", label: "SO₄²⁻ sulfate", sub: "golden · S atom", size: 12, halo: false },
-  { color: "#cc2222", label: "H₂O water", sub: "red · O atom", size: 10, halo: false },
-  { color: "#2255cc", label: "Thiourea N", sub: "blue · N atom", size: 11, halo: false },
-  { color: "#444444", label: "Thiourea C", sub: "dark · C atom", size: 10, halo: false },
+  { color: "#00d4ff", label: "Zn²⁺  (150 ions)", sub: "cyan · large sphere", size: 16, halo: true },
+  { color: "#c8b200", label: "S  in SO₄²⁻", sub: "golden · 150 sulfate ions", size: 12, halo: false },
+  { color: "#cc2222", label: "O  (H₂O + SO₄²⁻)", sub: "red · all oxygen atoms", size: 10, halo: false },
+  { color: "#2255cc", label: "N  in Thiourea", sub: "blue · 10 molecules", size: 11, halo: false },
+  { color: "#555555", label: "C  in Thiourea", sub: "dark grey · C atom", size: 10, halo: false },
+  { color: "#e8e8e8", label: "H  (hydrogen)", sub: "white · H atoms", size: 8, halo: false },
 ];
 
 export default function MolViewer({ pdbUrl = "/md_visualization.pdb" }) {
@@ -72,7 +73,7 @@ export default function MolViewer({ pdbUrl = "/md_visualization.pdb" }) {
           sphere: { radius: 0.4, color: "#333333" },
         });
         viewer.addStyle({ elem: "H" }, {
-          sphere: { radius: 0.18, color: "#ffffff", opacity: 0.35 },
+          sphere: { radius: 0.18, color: "#e0e0e0", opacity: 0.6 },
         });
 
         viewer.zoomTo();
