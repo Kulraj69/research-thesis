@@ -100,7 +100,6 @@ export function ThankYouSlide({ data }) {
           <span key={i} className="tool-chip">{t}</span>
         ))}
       </div>
-      <p className="thankyou-cta">Questions?</p>
     </div>
   );
 }
