@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import $3Dmol from "3dmol";
 
 const LEGEND = [
-  { color: "#00d4ff", label: "Zn²⁺", size: 14 },
-  { color: "#c8b200", label: "Sulfur (S)", size: 10 },
-  { color: "#cc2222", label: "Oxygen (O)", size: 8 },
-  { color: "#2255cc", label: "Nitrogen (N)", size: 9 },
-  { color: "#333333", label: "Carbon (C)", size: 8 },
-  { color: "#cccccc", label: "Hydrogen (H)", size: 6 },
+  { color: "#00d4ff", label: "Zn²⁺ ion", sub: "cyan · large sphere", size: 16, halo: true },
+  { color: "#c8b200", label: "SO₄²⁻ sulfate", sub: "golden · S atom", size: 12, halo: false },
+  { color: "#cc2222", label: "H₂O water", sub: "red · O atom", size: 10, halo: false },
+  { color: "#2255cc", label: "Thiourea N", sub: "blue · N atom", size: 11, halo: false },
+  { color: "#444444", label: "Thiourea C", sub: "dark · C atom", size: 10, halo: false },
 ];
 
 export default function MolViewer({ pdbUrl = "/md_visualization.pdb" }) {
@@ -93,26 +92,44 @@ export default function MolViewer({ pdbUrl = "/md_visualization.pdb" }) {
       borderRadius: "6px", border: "1px solid #c8c4b8", overflow: "hidden",
       minHeight: "280px",
     }} ref={wrapperRef}>
-      {/* Legend overlay — pointer-events none so it doesn't block interaction */}
+      {/* Legend overlay */}
       <div style={{
-        position: "absolute", bottom: 8, left: 8, zIndex: 10,
-        background: "rgba(255,255,255,0.92)", backdropFilter: "blur(4px)",
-        borderRadius: "6px", padding: "6px 10px",
-        border: "1px solid #e0ddd5",
-        display: "flex", flexDirection: "column", gap: "3px",
+        position: "absolute", top: 8, right: 8, zIndex: 10,
+        background: "rgba(20,20,20,0.82)", backdropFilter: "blur(6px)",
+        borderRadius: "8px", padding: "8px 12px",
+        border: "1px solid rgba(255,255,255,0.15)",
+        display: "flex", flexDirection: "column", gap: "5px",
         pointerEvents: "none",
+        minWidth: "148px",
       }}>
+        <div style={{ fontSize: "8px", color: "rgba(255,255,255,0.5)", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "2px" }}>
+          Atom Legend
+        </div>
         {LEGEND.map((item) => (
-          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <span style={{
-              display: "inline-block",
-              width: item.size, height: item.size,
-              borderRadius: "50%",
-              background: item.color,
-              border: item.color === "#cccccc" ? "1px solid #aaa" : "none",
-              flexShrink: 0,
-            }} />
-            <span style={{ fontSize: "9px", color: "#444", fontWeight: 500 }}>{item.label}</span>
+          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <div style={{ position: "relative", width: item.size + 4, height: item.size + 4, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {item.halo && (
+                <span style={{
+                  position: "absolute",
+                  width: item.size + 8, height: item.size + 8,
+                  borderRadius: "50%",
+                  background: item.color,
+                  opacity: 0.3,
+                }} />
+              )}
+              <span style={{
+                display: "inline-block",
+                width: item.size, height: item.size,
+                borderRadius: "50%",
+                background: item.color,
+                flexShrink: 0,
+                position: "relative",
+              }} />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
+              <span style={{ fontSize: "10px", color: "#fff", fontWeight: 600, lineHeight: 1.2 }}>{item.label}</span>
+              <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.45)", lineHeight: 1.2 }}>{item.sub}</span>
+            </div>
           </div>
         ))}
       </div>

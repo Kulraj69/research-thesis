@@ -402,55 +402,6 @@ export const slides = [
     ],
   },
 
-  // ──────────────────────────────────────────
-  // 15 — EQUILIBRATION CHECKLIST
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Equilibration Checklist — 300 K ZnSO₄ + Thiourea",
-    content: [
-      {
-        kind: "checklist",
-        items: [
-          {
-            label: "Energy Minimization",
-            value: "Epot converged to −600,328 kJ/mol",
-            detail: "1,249 steps  |  Start: −147,576 → Final: −600,328 kJ/mol  |  ΔE = −747,504 kJ/mol",
-            criterion: "Plateau reached, no further decrease",
-            pass: true,
-          },
-          {
-            label: "NVT Temperature",
-            value: "Mean = 299.86 ± 3.13 K  (target: 300 K)",
-            detail: "500 ps  |  Range: 291.3 – 316.2 K  |  Deviation < 1%",
-            criterion: "Mean within ±5 K of target, σ < 5 K",
-            pass: true,
-          },
-          {
-            label: "NPT Density",
-            value: "Mean = 1,389.7 ± 4.5 kg/m³",
-            detail: "3,000 ps (equil. after 200 ps)  |  Stable plateau, σ/μ = 0.32%",
-            criterion: "Flat plateau, σ/μ < 2%",
-            pass: true,
-          },
-          {
-            label: "NPT Pressure",
-            value: "Mean ≈ −0.2 ± 356 bar  (target: 1 bar)",
-            detail: "3,000 ps  |  Large fluctuations normal for small systems  |  Mean ≈ 0",
-            criterion: "Mean oscillates around target, no drift",
-            pass: true,
-          },
-          {
-            label: "Zn²⁺ Diffusion (MSD)",
-            value: "D ≈ 0.8 × 10⁻⁹ m²/s  (linear MSD regime)",
-            detail: "10 ns trajectory  |  Linear fit on 20-80% of data  |  Ballistic → diffusive transition clear",
-            criterion: "MSD linear at long times, no plateau / anomaly",
-            pass: true,
-          },
-        ],
-      },
-    ],
-  },
 
   // ──────────────────────────────────────────
   // — INDIVIDUAL CONVERGENCE PLOTS
