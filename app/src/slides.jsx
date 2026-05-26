@@ -143,9 +143,11 @@ export const slides = [
           ],
         },
         right: {
-          kind: "image",
-          src: "/images/dendrite-real.jpg",
-          alt: "Real photograph of metallic dendrite growth — lead trees from displacement reaction (analogous to Zn dendrites)",
+          kind: "dualImage",
+          images: [
+            { src: "/images/dendrite-real.jpg", caption: "Metallic dendrite growth (real photo)" },
+            { src: "/images/znoh2-3d.png", caption: "Zn(OH)₂ — passivation product (3D model)" },
+          ],
         },
       },
       {
@@ -181,8 +183,8 @@ export const slides = [
         right: {
           kind: "dualImage",
           images: [
-            { src: "/images/thiourea-structure.png", caption: "2D structure: C=S thione group (S-donor site)" },
-            { src: "/images/thiourea-3d.png", caption: "3D ball-and-stick model (public domain)" },
+            { src: "/images/thiourea-3d.png", caption: "3D ball-and-stick — S (yellow), C (black), N (blue), H (white)" },
+            { src: "/images/thiourea-vdw.png", caption: "Space-filling (van der Waals) model" },
           ],
         },
       },
@@ -331,6 +333,13 @@ export const slides = [
           src: "/md_visualization.pdb",
           caption: "Interactive 3D View — 14,696 atoms",
         },
+      },
+      {
+        kind: "dualImage",
+        images: [
+          { src: "/images/so4-ion-3d.png", caption: "SO₄²⁻ — tetrahedral, dominant 1st-shell ligand" },
+          { src: "/images/water-3d.png", caption: "H₂O (TIP4P model) — 3,429 molecules" },
+        ],
       },
       {
         kind: "callout",
