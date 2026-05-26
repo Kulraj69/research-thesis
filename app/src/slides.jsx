@@ -143,11 +143,9 @@ export const slides = [
           ],
         },
         right: {
-          kind: "dualImage",
-          images: [
-            { src: "/images/dendrite-real.jpg", caption: "Metallic dendrite growth (real photo)" },
-            { src: "/images/znoh2-3d.png", caption: "Zn(OH)₂ — passivation product (3D model)" },
-          ],
+          kind: "image",
+          src: "/images/dendrite-real.jpg",
+          alt: "Metallic dendrite growth (real photo)",
         },
       },
       {
