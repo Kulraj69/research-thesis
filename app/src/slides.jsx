@@ -333,13 +333,6 @@ export const slides = [
         },
       },
       {
-        kind: "dualImage",
-        images: [
-          { src: "/images/so4-ion-3d.png", caption: "SO₄²⁻ — tetrahedral, dominant 1st-shell ligand" },
-          { src: "/images/water-3d.png", caption: "H₂O (TIP4P model) — 3,429 molecules" },
-        ],
-      },
-      {
         kind: "callout",
         text: "Box built with Packmol: 5.0³ nm³ → 4.71³ nm³ after NPT equilibration (−5.9% shrinkage). Net charge = 150(+2) + 150(−2) + 10(0) + 3429(0) = 0. Effective concentration ≈ 2M ZnSO₄.",
       },
