@@ -201,29 +201,20 @@ export const slides = [
     heading: "Why This Study?",
     content: [
       {
-        kind: "split",
-        left: {
-          kind: "columns",
-          compact: true,
-          cols: [
-            { title: "What We Know", color: "lime", items: [
-              "Additives improve cycling at room temperature",
-              "Thiourea forms a protective SEI on Zn anode",
-              "Electrochemical performance well characterized",
-              "Solvation shell snapshots available at 300 K",
-            ]},
-            { title: "What We Aim to Study", color: "amber", items: [
-              "Which ligand dominates the first solvation shell?",
-              "What role does thiourea actually play at the molecular level?",
-              "How does Zn²⁺ diffusion change with temperature?",
-            ]},
-          ],
-        },
-        right: {
-          kind: "image",
-          src: "/images/schematic_solvation.png",
-          alt: "Zn²⁺ solvation shell schematic showing water, SO₄²⁻ and thiourea ligands",
-        },
+        kind: "columns",
+        cols: [
+          { title: "What We Know", color: "lime", items: [
+            "Additives improve cycling at room temperature",
+            "Thiourea forms a protective SEI on Zn anode",
+            "Electrochemical performance well characterized",
+            "Solvation shell snapshots available at 300 K",
+          ]},
+          { title: "What We Aim to Study", color: "amber", items: [
+            "Which ligand dominates the first solvation shell?",
+            "What role does thiourea actually play at the molecular level?",
+            "How does Zn²⁺ diffusion change with temperature?",
+          ]},
+        ],
       },
       {
         kind: "callout",
