@@ -201,29 +201,33 @@ export const slides = [
     heading: "Why This Study?",
     content: [
       {
-        kind: "columns",
-        cols: [
-          { title: "What We Know", color: "lime", items: [
-            "Additives improve cycling at room temperature",
-            "Thiourea forms a protective SEI (Solid Electrolyte Interphase) on Zn anode",
-            "Electrochemical performance (coulombic efficiency, cycle life, capacity retention) well characterized",
-            "Solvation shell snapshots available at 300 K",
-          ]},
-          { title: "What We Aim to Study", color: "amber", items: [
-            "What is the coordination shell structure around Zn²⁺?",
-            "Which ligand dominates the first solvation shell?",
-            "What role does thiourea actually play?",
-            "How does Zn²⁺ diffusion behave in this electrolyte?",
-          ]},
-        ],
-      },
-      {
-        kind: "equation",
-        tex: "Does increasing T simply speed up diffusion... or reorganize the coordination shell entirely?",
+        kind: "split",
+        left: {
+          kind: "columns",
+          compact: true,
+          cols: [
+            { title: "What We Know", color: "lime", items: [
+              "Additives improve cycling at room temperature",
+              "Thiourea forms a protective SEI on Zn anode",
+              "Electrochemical performance well characterized",
+              "Solvation shell snapshots available at 300 K",
+            ]},
+            { title: "What We Aim to Study", color: "amber", items: [
+              "Which ligand dominates the first solvation shell?",
+              "What role does thiourea actually play at the molecular level?",
+              "How does Zn²⁺ diffusion change with temperature?",
+            ]},
+          ],
+        },
+        right: {
+          kind: "image",
+          src: "/images/schematic_solvation.png",
+          alt: "Zn²⁺ solvation shell schematic showing water, SO₄²⁻ and thiourea ligands",
+        },
       },
       {
         kind: "callout",
-        text: "This study systematically tracks how Zn²⁺ solvation structure and dynamics evolve across a temperature range relevant to real battery operating conditions (280–340 K).",
+        text: "Does increasing T simply speed up diffusion… or reorganize the coordination shell entirely? This study systematically tracks 280–340 K.",
       },
     ],
   },
@@ -248,19 +252,21 @@ export const slides = [
           ],
         },
         right: {
-          kind: "table",
-          headers: ["Parameter", "Value"],
-          rows: [
-            ["Sim. time (per T)", "10 ns production"],
-            ["Frames collected", "10,000 per run"],
-            ["Atoms per system", "14,696"],
-            ["Box size (initial)", "5.0³ nm³"],
-            ["Concentration", "~2 M ZnSO₄"],
-            ["Thiourea : Zn ratio", "1 : 15"],
-            ["Analysis tools", "gmx rdf, msd, energy"],
-            ["HPC resource", "Param Shivaay IIT BHU"],
-          ],
+          kind: "image",
+          src: "/images/system-snapshot.png",
+          alt: "GROMACS simulation box — 14,696 atoms at 300 K",
         },
+      },
+      {
+        kind: "table",
+        headers: ["Parameter", "Value"],
+        rows: [
+          ["Sim. time (per T)", "10 ns production"],
+          ["Atoms per system", "14,696"],
+          ["Concentration", "~2 M ZnSO₄"],
+          ["Thiourea : Zn ratio", "1 : 15"],
+          ["HPC resource", "Param Shivaay IIT BHU"],
+        ],
       },
     ],
   },
@@ -284,8 +290,9 @@ export const slides = [
       {
         kind: "split",
         left: {
-          kind: "equation",
-          tex: "F = −∇U(r)  →  a = F/m  →  v(t+½dt)  →  r(t+dt)",
+          kind: "image",
+          src: "/images/lj-potential.svg",
+          alt: "Lennard-Jones 12-6 potential energy curve",
         },
         right: {
           kind: "table",
@@ -358,14 +365,22 @@ export const slides = [
         ],
       },
       {
-        kind: "table",
-        headers: ["Stage", "Duration", "Key Metric"],
-        rows: [
-          ["Minimization", "~5,000 steps", "Fmax < 1000 kJ/mol/nm"],
-          ["NVT equil.", "500 ps", "T = 299.86 ± 3.13 K"],
-          ["NPT equil.", "3 ns", "ρ = 1389.7 ± 4.5 kg/m³"],
-          ["Production", "10 ns", "10,000 frames"],
-        ],
+        kind: "split",
+        left: {
+          kind: "table",
+          headers: ["Stage", "Duration", "Key Metric"],
+          rows: [
+            ["Minimization", "~5,000 steps", "Fmax < 1000 kJ/mol/nm"],
+            ["NVT equil.", "500 ps", "T = 299.86 ± 3.13 K"],
+            ["NPT equil.", "3 ns", "ρ = 1389.7 ± 4.5 kg/m³"],
+            ["Production", "10 ns", "10,000 frames"],
+          ],
+        },
+        right: {
+          kind: "image",
+          src: "/images/system-snapshot.png",
+          alt: "GROMACS simulation box — 14,696 atoms after Packmol build",
+        },
       },
     ],
   },
@@ -587,26 +602,35 @@ export const slides = [
     heading: "RDF Results Summary — 300 K",
     content: [
       {
-        kind: "table",
-        headers: ["Pair", "Peak Position (nm)", "Peak g(r)", "1st Min (nm)", "Interpretation"],
-        rows: [
-          ["Zn²⁺–SO₄²⁻", "0.176", "30.1", "0.270", "Dominant — strong ion pairing"],
-          ["Zn²⁺–Water (O)", "0.206", "4.725", "0.312", "Stable solvation backbone"],
-          ["Zn²⁺–Thiourea", "0.228", "1.649", "0.290", "Weak — outer-shell coordination"],
-        ],
+        kind: "split",
+        left: {
+          kind: "table",
+          headers: ["Pair", "Peak r (nm)", "Peak g(r)", "Interpretation"],
+          rows: [
+            ["Zn²⁺–SO₄²⁻", "0.176", "30.1", "Dominant — strong ion pairing"],
+            ["Zn²⁺–Water (O)", "0.206", "4.725", "Stable solvation backbone"],
+            ["Zn²⁺–Thiourea", "0.228", "1.649", "Weak — outer-shell only"],
+          ],
+        },
+        right: {
+          kind: "dualImage",
+          images: [
+            { src: "/images/so4-ion-3d.png", caption: "SO₄²⁻ — dominant 1st shell ligand" },
+            { src: "/images/water-3d.png", caption: "H₂O — stable 2nd shell" },
+          ],
+        },
       },
       {
         kind: "columns",
+        compact: true,
         cols: [
           { title: "Key Findings", color: "lime", items: [
             "SO₄²⁻ is the dominant 1st shell ligand (g(r) ≈ 30)",
             "Water forms stable 2nd coordination layer",
             "Thiourea coordination is weak (g(r) < 2)",
-            "All RDFs converge to g(r) = 1 at large r",
           ]},
           { title: "Implications", color: "amber", items: [
             "Thiourea acts as outer-shell modifier, not inner-shell",
-            "Sulphate controls the coordination geometry",
             "Complex structure: [Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ]",
             "Peak positions consistent with literature ionic radii",
           ]},
@@ -683,15 +707,23 @@ export const slides = [
         ],
       },
       {
-        kind: "table",
-        headers: ["Property", "Controlled By", "This Work's Finding"],
-        rows: [
-          ["HER rate", "H₂O in 1st shell", "SO₄²⁻ displaces water → suppresses HER"],
-          ["Coordination", "Ligand binding strength", "SO₄²⁻ >> Water >> Thiourea in 1st shell"],
-          ["Thiourea role", "Outer-shell modifier", "g(r) = 1.6 — does not dominate coordination"],
-          ["Zn²⁺ mobility", "MSD at 300 K", "MSD = 0.644 nm² at 10 ns — slow complex"],
-          ["Complex structure", "RDF peak hierarchy", "[Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ] confirmed"],
-        ],
+        kind: "split",
+        left: {
+          kind: "table",
+          headers: ["Property", "Controlled By", "This Work's Finding"],
+          rows: [
+            ["HER rate", "H₂O in 1st shell", "SO₄²⁻ displaces water → suppresses HER"],
+            ["Coordination", "Ligand binding strength", "SO₄²⁻ >> Water >> Thiourea in 1st shell"],
+            ["Thiourea role", "Outer-shell modifier", "g(r) = 1.6 — not dominant in 1st shell"],
+            ["Zn²⁺ mobility", "MSD at 300 K", "MSD = 0.644 nm² at 10 ns — slow complex"],
+            ["Complex structure", "RDF peak hierarchy", "[Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ] confirmed"],
+          ],
+        },
+        right: {
+          kind: "image",
+          src: "/images/schematic_battery.png",
+          alt: "Aqueous zinc-ion battery schematic",
+        },
       },
       {
         kind: "callout",
