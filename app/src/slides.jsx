@@ -582,6 +582,34 @@ export const slides = [
   },
 
   // ──────────────────────────────────────────
+  // — RDF TEMPERATURE COMPARISON (all 4 plots on single page)
+  // ──────────────────────────────────────────
+  {
+    type: "body",
+    heading: "RDF Temperature Comparison — 280 to 340 K",
+    content: [
+      {
+        kind: "dualImage",
+        images: [
+          { src: "/images/rdf-zn-so4-temps.png", caption: "Zn–SO₄: g(r) ≈ 32 at all T" },
+          { src: "/images/rdf-zn-water-temps.png", caption: "Zn–Water: g(r) ≈ 4.7 stable" },
+        ],
+      },
+      {
+        kind: "dualImage",
+        images: [
+          { src: "/images/rdf-zn-ligand-temps.png", caption: "Zn–Ligand: 280 K peak (g(r) ≈ 2.0)" },
+          { src: "/images/rdf-coordination-shell-temps.png", caption: "First Shell Peak Variation" },
+        ],
+      },
+      {
+        kind: "callout",
+        text: "SO₄ & Water coordination stable across T. Ligand coordination strongest at 280 K (g(r) ≈ 2.0) — thermal disruption at higher T.",
+      },
+    ],
+  },
+
+  // ──────────────────────────────────────────
   // 17 — OVERALL RDF COMPARISON
   // ──────────────────────────────────────────
   {
@@ -647,34 +675,6 @@ export const slides = [
             "Peak positions consistent with literature ionic radii",
           ]},
         ],
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
-  // — RDF TEMPERATURE COMPARISON (all 4 plots on single page)
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "RDF Temperature Comparison — 280 to 340 K",
-    content: [
-      {
-        kind: "dualImage",
-        images: [
-          { src: "/images/rdf-zn-so4-temps.png", caption: "Zn–SO₄: g(r) ≈ 32 at all T" },
-          { src: "/images/rdf-zn-water-temps.png", caption: "Zn–Water: g(r) ≈ 4.7 stable" },
-        ],
-      },
-      {
-        kind: "dualImage",
-        images: [
-          { src: "/images/rdf-zn-ligand-temps.png", caption: "Zn–Ligand: 280 K peak (g(r) ≈ 2.0)" },
-          { src: "/images/rdf-coordination-shell-temps.png", caption: "First Shell Peak Variation" },
-        ],
-      },
-      {
-        kind: "callout",
-        text: "SO₄ & Water coordination stable across T. Ligand coordination strongest at 280 K (g(r) ≈ 2.0) — thermal disruption at higher T.",
       },
     ],
   },

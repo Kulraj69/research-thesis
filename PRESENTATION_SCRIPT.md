@@ -196,7 +196,20 @@
 
 ---
 
-## Slide 18: Overall RDF Comparison
+## Slide 18: RDF Temperature Comparison
+**[~1 minute]**
+
+> "Now let's look at temperature dependence. These four plots show RDFs from 280 to 340 K.
+>
+> **Zn-SO₄** and **Zn-Water** coordination remain **stable across all temperatures** — the peaks barely change.
+>
+> But look at **Zn-Ligand** — at 280 K we see a much stronger peak, g(r) around 2.0, compared to only 0.9 at higher temperatures. This shows **thermal disruption of coordination** at higher T.
+>
+> The first shell peak variation plot confirms this — 280 K has distinctly stronger coordination."
+
+---
+
+## Slide 19: Overall RDF Comparison
 **[~45 seconds]**
 
 > "This overlay shows all three ligands together. The coordination hierarchy is clear:
@@ -207,25 +220,12 @@
 
 ---
 
-## Slide 19: RDF Results Summary
+## Slide 20: RDF Results Summary
 **[~45 seconds]**
 
 > "Summarizing our RDF results in this table. SO₄ at 0.176 nm with g(r) 30.1 — dominant ion pairing. Water at 0.206 nm with g(r) 4.7 — stable solvation backbone. Thiourea at 0.228 nm with g(r) only 1.6 — weak outer-shell coordination.
 >
 > **Key implication**: Thiourea acts as an outer-shell modifier, not inner-shell. The coordination complex is [Zn(SO₄)ₙ(H₂O)ₘ(Tu)ₖ] where SO₄ dominates."
-
----
-
-## Slide 20: RDF Temperature Comparison
-**[~1 minute]**
-
-> "Now let's look at temperature dependence. These four plots show RDFs from 280 to 340 K.
->
-> **Zn-SO₄** and **Zn-Water** coordination remain **stable across all temperatures** — the peaks barely change.
->
-> But look at **Zn-Ligand** — at 280 K we see a much stronger peak, g(r) around 2.0, compared to only 0.9 at higher temperatures. This shows **thermal disruption of coordination** at higher T.
->
-> The first shell peak variation plot confirms this — 280 K has distinctly stronger coordination."
 
 ---
 
