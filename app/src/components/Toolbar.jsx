@@ -5,8 +5,12 @@ import { slides } from "../slides";
 
 export function Toolbar({ current, total, onPrev, onNext, slideRef, onPresent }) {
   const downloadPDF = async () => {
-    const el = slideRef.current;
-    if (!el) return;
+    // Get the slide frame element
+    const el = document.getElementById("slide-frame");
+    if (!el) {
+      alert("Could not find slide element");
+      return;
+    }
     
     const btn = document.querySelector(".toolbar");
     const statusDiv = document.createElement("div");
@@ -14,36 +18,75 @@ export function Toolbar({ current, total, onPrev, onNext, slideRef, onPresent })
     statusDiv.textContent = "Generating PDF... 0/" + total;
     document.body.appendChild(statusDiv);
     btn.style.display = "none";
+    
+    // Disable animations for capture
+    const style = document.createElement("style");
+    style.id = "pdf-capture-style";
+    style.textContent = "*, *::before, *::after { animation: none !important; transition: none !important; }";
+    document.head.appendChild(style);
 
     const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1280, 720] });
     const originalSlide = current;
 
     for (let i = 0; i < total; i++) {
       statusDiv.textContent = `Generating PDF... ${i + 1}/${total}`;
+      
+      // Navigate to slide
       const evt = new CustomEvent("go-to-slide", { detail: i });
       window.dispatchEvent(evt);
-      await delay(600); // Increased delay for rendering
+      
+      // Wait for render
+      await delay(800);
+      
+      // Wait for any images to load
+      const images = el.querySelectorAll("img");
+      await Promise.all(
+        Array.from(images).map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve;
+            setTimeout(resolve, 2000); // Timeout after 2s
+          });
+        })
+      );
+      
+      await delay(200);
 
       try {
+        const rect = el.getBoundingClientRect();
         const canvas = await html2canvas(el, {
           scale: 2,
           useCORS: true,
           allowTaint: true,
           backgroundColor: "#FAF8EF",
-          width: el.offsetWidth,
-          height: el.offsetHeight,
+          width: rect.width,
+          height: rect.height,
+          x: 0,
+          y: 0,
           logging: false,
-          imageTimeout: 5000,
+          imageTimeout: 10000,
+          onclone: (clonedDoc) => {
+            // Remove 3D viewer from clone (causes issues)
+            const mol3d = clonedDoc.querySelectorAll("[data-mol3d]");
+            mol3d.forEach(el => el.remove());
+          }
         });
 
-        const imgData = canvas.toDataURL("image/jpeg", 0.92);
+        const imgData = canvas.toDataURL("image/jpeg", 0.95);
         if (i > 0) pdf.addPage();
         pdf.addImage(imgData, "JPEG", 0, 0, 1280, 720);
       } catch (err) {
         console.error("Error capturing slide", i, err);
+        // Add blank page on error
+        if (i > 0) pdf.addPage();
+        pdf.setFontSize(20);
+        pdf.text(`Slide ${i + 1} - Error capturing`, 100, 360);
       }
     }
 
+    // Restore
+    document.getElementById("pdf-capture-style")?.remove();
     const goBack = new CustomEvent("go-to-slide", { detail: originalSlide });
     window.dispatchEvent(goBack);
     btn.style.display = "";
@@ -53,8 +96,11 @@ export function Toolbar({ current, total, onPrev, onNext, slideRef, onPresent })
   };
 
   const downloadPPTX = async () => {
-    const el = slideRef.current;
-    if (!el) return;
+    const el = document.getElementById("slide-frame");
+    if (!el) {
+      alert("Could not find slide element");
+      return;
+    }
     
     const btn = document.querySelector(".toolbar");
     const statusDiv = document.createElement("div");
@@ -62,6 +108,12 @@ export function Toolbar({ current, total, onPrev, onNext, slideRef, onPresent })
     statusDiv.textContent = "Generating PPTX... 0/" + total;
     document.body.appendChild(statusDiv);
     btn.style.display = "none";
+    
+    // Disable animations
+    const style = document.createElement("style");
+    style.id = "pptx-capture-style";
+    style.textContent = "*, *::before, *::after { animation: none !important; transition: none !important; }";
+    document.head.appendChild(style);
 
     const pptx = new PptxGenJS();
     pptx.defineLayout({ name: "WIDE", width: 13.33, height: 7.5 });
@@ -72,18 +124,38 @@ export function Toolbar({ current, total, onPrev, onNext, slideRef, onPresent })
       statusDiv.textContent = `Generating PPTX... ${i + 1}/${total}`;
       const evt = new CustomEvent("go-to-slide", { detail: i });
       window.dispatchEvent(evt);
-      await delay(600);
+      await delay(800);
+      
+      // Wait for images
+      const images = el.querySelectorAll("img");
+      await Promise.all(
+        Array.from(images).map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve;
+            setTimeout(resolve, 2000);
+          });
+        })
+      );
+      
+      await delay(200);
 
       try {
+        const rect = el.getBoundingClientRect();
         const canvas = await html2canvas(el, {
           scale: 2,
           useCORS: true,
           allowTaint: true,
           backgroundColor: "#FAF8EF",
-          width: el.offsetWidth,
-          height: el.offsetHeight,
+          width: rect.width,
+          height: rect.height,
           logging: false,
-          imageTimeout: 5000,
+          imageTimeout: 10000,
+          onclone: (clonedDoc) => {
+            const mol3d = clonedDoc.querySelectorAll("[data-mol3d]");
+            mol3d.forEach(el => el.remove());
+          }
         });
 
         const imgData = canvas.toDataURL("image/png");
@@ -94,6 +166,7 @@ export function Toolbar({ current, total, onPrev, onNext, slideRef, onPresent })
       }
     }
 
+    document.getElementById("pptx-capture-style")?.remove();
     const goBack = new CustomEvent("go-to-slide", { detail: originalSlide });
     window.dispatchEvent(goBack);
     btn.style.display = "";

@@ -310,7 +310,7 @@ function Checklist({ block }) {
 
 function Mol3D({ block }) {
   return (
-    <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
+    <div data-mol3d="true" style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
       {block.caption && (
         <p style={{ fontSize: "11px", color: "#666", textAlign: "center", marginBottom: "4px", fontWeight: 500 }}>
           {block.caption}
