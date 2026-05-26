@@ -80,8 +80,8 @@ body { background: #e8e4d8; font-family: var(--font-body); color: var(--ink); -w
 .title-banner h1 { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.25; }
 .title-sub { font-size: 13px; color: var(--ink-soft); margin-top: 3px; animation: fadeIn 0.5s ease-out both; animation-delay: 0.2s; }
 .title-middle { display: flex; align-items: center; justify-content: center; gap: 16px; animation: popIn 0.6s ease-out both; animation-delay: 0.15s; }
-.title-crest { height: 100px; width: auto; opacity: 0.22; }
-.title-iit-text { height: 40px; width: auto; opacity: 0.3; }
+.title-crest { height: 140px; width: auto; opacity: 0.55; }
+.title-iit-text { height: 55px; width: auto; opacity: 0.65; }
 .title-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 0 45px 20px; align-items: end; }
 .title-col { text-align: left; animation: slideLeft 0.45s ease-out both; animation-delay: 0.25s; }
 .title-col-right { text-align: left; animation: slideRight 0.45s ease-out both; animation-delay: 0.35s; }
@@ -428,7 +428,7 @@ body { background: #e8e4d8; font-family: var(--font-body); color: var(--ink); -w
   height: 100%; display: flex; flex-direction: column;
   align-items: center; justify-content: center; text-align: center; padding: 24px; gap: 10px;
 }
-.thankyou-crest { height: 130px; opacity: 0.2; animation: popIn 0.6s ease-out both; animation-delay: 0.1s; }
+.thankyou-crest { height: 160px; opacity: 0.55; animation: popIn 0.6s ease-out both; animation-delay: 0.1s; }
 .thankyou-heading { font-family: var(--font-heading); font-size: 38px; font-weight: 700; color: var(--ink); animation: fadeUp 0.5s ease-out both; animation-delay: 0.2s; }
 .thankyou-info { margin-top: 2px; }
 .thankyou-name { font-size: 18px; font-weight: 600; color: var(--ink); }
