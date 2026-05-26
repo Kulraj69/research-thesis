@@ -403,25 +403,6 @@ export const slides = [
   },
 
   // ──────────────────────────────────────────
-  // 14 — CONVERGENCE VALIDATION (300 K data)
-  // ──────────────────────────────────────────
-  {
-    type: "body",
-    heading: "Convergence Validation — 300 K GROMACS Output",
-    content: [
-      {
-        kind: "image",
-        src: "/images/convergence-dashboard-300.png",
-        alt: "Convergence dashboard: energy minimization, NVT temperature, NPT density, NPT pressure",
-      },
-      {
-        kind: "callout",
-        text: "All convergence criteria met: E_min → −600,328 kJ/mol (1,249 steps), NVT temperature = 299.86 ± 3.13 K (target 300 K), NPT density = 1,389.7 ± 4.5 kg/m³ (stable plateau), pressure oscillates around 0 bar with no drift.",
-      },
-    ],
-  },
-
-  // ──────────────────────────────────────────
   // 15 — EQUILIBRATION CHECKLIST
   // ──────────────────────────────────────────
   {
